@@ -1,3 +1,27 @@
+## STATPGX
+
+### UI "Create current and prospective medication page"
+
+#### Activity
+As a STATPGX user, I want to be able to open a page that displays the current and prospective medications fields.
+
+Description
+Create Current and Prospective Medications page that should contain the following fields:
+
+Name of the Medication (Dropdown)
+
+Conditions you are treating (Dropdown)
+
+Relevant Diagnosis (Dropdown)
+
+Add Medication (Button)
+
+Submit (Button)
+
+Acceptance Criteria
+The page should display all the corresponding fields as in the mockup.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
