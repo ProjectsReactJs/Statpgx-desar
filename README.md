@@ -21,6 +21,9 @@ Submit (Button)
 Acceptance Criteria
 The page should display all the corresponding fields as in the mockup.
 
+## Technology Used
+* React
+* Material UI
 
 # Getting Started with Create React App
 
