@@ -1,0 +1,95 @@
+{
+	"actions": {
+		"add": "Add",
+		"cancel": "Cancel",
+		"delete": "Delete",
+		"edit": "Edit",
+		"new": "New"
+	},
+	"dashboard": {
+		"title": "Health Metrics"
+	},
+	"errors": {
+		"login": {
+			"GetUserPermissionsError": "Unable to retrieve user permissions",
+			"GetUserRolesError": "Unable to retrieve user roles",
+			"OAuthCallback": "Invalid responose from authentication server",
+			"OAuthSignin": "Unable to login. Server unavailable",
+			"RefreshAccessTokenError": "Session expired",
+			"SessionRequired": ""
+		}
+	},
+	"footer": {
+		"copyright": "FrogMD. All Rights reserved"
+	},
+	"forms": {
+		"error": "Correct the following errors:",
+		"required": "* Required field"
+	},
+	"header": {
+		"languages": {
+			"aria_label": "Change language",
+			"english": "English",
+			"spanish": "Español"
+		},
+		"title": "Dashboard",
+		"user": {
+			"aria_label": "User settings menu",
+			"settings": "Settings",
+			"sign_out": "Sign Out"
+		}
+	},
+	"loading": "Loading...",
+	"login": {
+		"continue_message": "Login to continue",
+		"signin_message": "Sign in with",
+		"welcome_message": "Welcome!"
+	},
+	"select": "Select...",
+	"settings": {
+		"form": {
+			"actions": {
+				"save": "Save"
+			}
+		},
+		"title": "Settings",
+		"language": {
+			"title": "Language"
+		}
+	},
+	"sidebar": {
+		"navigationItems": {
+			"dashboard": "Dashboard",
+			"settings": "Settings",
+			"medication": "Medication"
+		}
+	},
+	"medication": {
+		"title": "CURRENT AND PROSPETIVE MEDICATIONS",
+		"form": {
+			"actions": {
+				"save": "Save",
+				"add": "Add a Medication",
+				"remove": "Remove a Medication",
+				"showPreview": "Show preview",
+				"close": "Close"
+			},
+			"fields": {
+				"medicationName": "Name of the medication",
+				"conditionTreatment": "Condition you are treating",
+				"diagnosis": "Diagnosis"
+			}
+		},
+		"name": "Name of Medication",
+		"condition": "Condition you are treating with this medication",
+		"diagnosis": "Relevant Diagnosis",
+		"previewModal": {
+			"title": "Preview data in JSON format"
+		}
+	},
+	"validation": {
+		"messages": {
+			"required": "The field is required"
+		}
+	}
+}

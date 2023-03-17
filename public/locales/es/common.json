@@ -1,0 +1,99 @@
+{
+	"actions": {
+		"add": "Agregar",
+		"cancel": "Cancelar",
+		"delete": "Borrar",
+		"edit": "Editar",
+		"new": "Nuevo",
+		"save": "Guradar"
+	},
+	"dashboard": {
+		"title": "Métricas de salud"
+	},
+	"errors": {
+		"login": {
+			"GetUserPermissionsError": "Error al intentar obtener los permisos del usuario",
+			"GetUserRolesError": "Error al intentar obtener los roles del usuario",
+			"OAuthCallback": "Respuesta invalida del servidor de autenticación",
+			"OAuthSignin": "Servidor de autenticación no disponible",
+			"RefreshAccessTokenError": "Sesión expirada",
+			"SessionRequired": ""
+		}
+	},
+	"footer": {
+		"copyright": "FrogMD. Todos los derechos reservados"
+	},
+	"forms": {
+		"error": "Corrige los siguientes errores:",
+		"required": "* Campo requerido"
+	},
+	"header": {
+		"languages": {
+			"aria_label": "Cambiar lenguaje",
+			"english": "English",
+			"spanish": "Español"
+		},
+		"title": "Dashboard",
+		"user": {
+			"aria_label": "Configuración de usuario",
+			"profile": "Perfil",
+			"sign_out": "Cerrar sesión"
+		}
+	},
+	"loading": "Cargando...",
+	"login": {
+		"continue_message": "Iniciar sesión para continuar",
+		"signin_message": "Inicia sesión con",
+		"welcome_message": "Bienvenido!"
+	},
+	"select": "Seleccionar...",
+	"settings": {
+		"form": {
+			"actions": {
+				"save": "Guardar"
+			}
+		},
+		"title": "Ajustes",
+		"language": {
+			"title": "Lenguaje"
+		}
+	},
+	"sidebar": {
+		"navigationItems": {
+			"health": "Salud",
+			"resources": "Recursos",
+			"dashboard": "Tablero",
+			"settings": "Ajustes",
+			"medication": "Medicación",
+			"logout": "Cerrar sesión"
+		}
+	},
+	"medication": {
+		"title": "Medicamentos actuales y prospectivos",
+		"form": {
+			"actions": {
+				"save": "Guardar",
+				"add": "Agregar Medicamento",
+				"remove": "Eliminar Medicamento",
+				"showPreview": "Previsualizar data",
+				"close": "Cerrar"
+			},
+			"fields": {
+				"medicationName": "Nombre del medicamento",
+				"conditionTreatment": "Condición a tratar",
+				"diagnosis": "Diagnóstico"
+			}
+		},
+		"name": "Nombre del Medicamento",
+		"condition": "Condición que está tratando con este medicamento",
+		"diagnosis": "Diagnóstico Relevante",
+		"previewModal": {
+			"title": "Previsualización de la data en formato JSON"
+		}
+	},
+	"validation": {
+		"messages": {
+			"required": "El campo es requerido"
+		}
+	}
+}

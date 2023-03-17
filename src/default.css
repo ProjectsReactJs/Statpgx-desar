@@ -1,0 +1,149 @@
+body .holos-survey {
+    --primary: #3e7a99;
+    --primary-light: rgba(62, 122, 153, 0.1);
+
+}
+
+.holos-survey .sd-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.holos-survey .sd-matrixdynamic__btn {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.holos-survey .sd-title {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.holos-survey .sd-title.sd-container-modern__title {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.holos-survey  .sd-description {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sd-item__control-label {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sd-dropdown option {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sd-dropdown__value {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sd-imagepicker__item--checked .sd-imagepicker__image-container::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='23' height='17' viewBox='0 0 23 17' fill='none'%3E%3Cpath d='M8.33331 16.1L0.333313 8L2.43331 5.9L8.33331 11.9L20.2333 0L22.3333 2.1L8.33331 16.1Z' fill='%233e7a99'/%3E%3C/svg%3E");
+}
+
+.sd-boolean__thumb,
+.sd-boolean__label {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+} 
+
+.sd-btn {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sd-body__navigation {
+    padding: calc(2 * var(--base-unit, 8px)) 2px;
+}
+
+.sd-action {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sd-completedpage {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sv-list {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sv-list__empty-container {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sv-action-bar-item {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sv-action-bar-item-dropdown {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sv-popup__button {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sv-brand-info {
+    font-family: "Roboto", sans-serif;
+}
+
+.sd-root-modern {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.holos-survey .sd-page {
+    padding: 0;
+}
+
+.holos-survey .sd-body--responsive .sd-page {
+    padding: 0;
+}
+
+.holos-survey .sd-matrix__cell:first-child {
+    font-weight: 400;
+}
+
+.holos-survey .sd-body.sd-body--static {
+    max-width: 100%;
+}
+
+.holos-survey .sd-body.sd-body--static .sd-body__page {
+    max-width: 100%;
+}
+
+.holos-survey .sd-body__navigation {
+    padding: calc(2 * var(--base-unit, 8px)) 2px;
+}
+ 
+.sd-body.sd-body--static .sd-body__timer,
+.sd-body.sd-body--static .sd-body__navigation,
+.sd-body.sd-body--static .sd-body__page {
+    max-width: inherit;
+}
+
+.sd-title .sv-title-actions {
+    align-items: center;
+}
+
+.btn-more-info {
+    color: #0288d1;
+    height: 24px;
+    font-size: 0.8125rem;
+    padding: 0px 12px
+}
+
+.btn-more-info:hover,
+.btn-more-info:focus {
+    background-color: transparent;
+    color: #01579b;
+}
+
+.sd-action:hover.sd-action--icon,
+.sd-action:focus.sd-action--icon {
+    background-color: transparent;
+}
+ 
+
+.btn-more-info .sd-action__title {
+    font-size: 0.8125rem !important;
+}
