@@ -252,9 +252,14 @@ export default function OptionSelect() {
 ```
 
 <a name="item5"></a>
-### pages
----
-It contains all the views created by the APP.
+### form / Select.js
+Está carpeta contiene un archivo llamado Select.js donde es el encargado del diseño de un formulario de Material UI.
+
+#### Code
+```
+
+```
+
 
 <a name="item6"></a>
 #### Medication.js
