@@ -48,11 +48,11 @@ npm install @mui/material @emotion/react @emotion/styled
 
 ## Content
 * [assets](#item1)
-* [Components](#item2
-	* [button](#item3
-		 * [Button.js](#item4)
-	* [dashboard](#item5
-		* [Dashboard.tsx](#item6)
+* [Components](#item2)
+	* [button](#item3)
+		 * [Button.js]
+	* [dashboard](#item4)
+		* [Dashboard.tsx]
 	* [dialogs](#item7
 		* [ConfirmationDialog.tsx](#item8)
 	* [form](#item9)
@@ -78,7 +78,6 @@ npm install @mui/material @emotion/react @emotion/styled
 
 <a name="item1"></a>
 ## assets
-
 Está carpeta es la encargada de guardar las imagenes que se van a utilizar en la APP.
 
 <a name="item2"></a>
@@ -90,7 +89,6 @@ Los componentes le permiten separar la interfaz de usuario en piezas independien
 Esta carpeta contiene el componente botón donde recibe el color y el texto por parámetro. Se utilizó material de interfaz de usuario. 
 
 #### Code:
-
 ```
 import * as React from 'react';
 import MUIButton from '@mui/material/Button';
@@ -106,7 +104,7 @@ export default Button;
 ```
 
 <a name="item4"></a>
-#### OptionSelect.js
+#### Dashboard/ Dashboard.tsx
 Component in charge of the input of the medication view, it was used for the UI material development.
 
 #### Code:
