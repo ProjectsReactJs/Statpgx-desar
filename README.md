@@ -47,18 +47,18 @@ npm install @mui/material @emotion/react @emotion/styled
 ```
 
 ## Content
-* [assets](#item)
-* [Components](#item)
-	* [button](#item)
-		 * [Button.js](#item)
-	* [dashboard](#item)
-		* [Dashboard.tsx](#item)
-	* [dialogs](#item)
-		* [ConfirmationDialog.tsx](#item)
-	* [form](#item)
-		* [Select.js](#item)
-	* [header](#item)
-		* [NavBar.js](#item)
+* [assets](#item1)
+* [Components](#item2
+	* [button](#item3
+		 * [Button.js](#item4)
+	* [dashboard](#item5
+		* [Dashboard.tsx](#item6)
+	* [dialogs](#item7
+		* [ConfirmationDialog.tsx](#item8)
+	* [form](#item9)
+		* [Select.js](#item10)
+	* [header](#item11)
+		* [NavBar.js](#item12)
 	* [main](#item)
 		* [hooks](#item)
 	* [medications](#item)
@@ -77,9 +77,14 @@ npm install @mui/material @emotion/react @emotion/styled
     * [Medication.js](#item)
 
 <a name="item1"></a>
+## assets
+ ---
+Está carpeta es la encargada de guardar las imagenes que se van a utilizar en la APP.
+
+<a name="item2"></a>
 ## Components
  ---
-Components allow you to separate the user interface into independent, reusable pieces and think about each piece in isolation. This page provides an introduction to the idea of ​​components. You can find a detailed API about components here.
+Los componentes le permiten separar la interfaz de usuario en piezas independientes y reutilizables y pensar en cada pieza de forma aislada. Esta página proporciona una introducción a la idea de los componentes. Puede encontrar una API detallada sobre los componentes aquí.
 
 <a name="item2"></a>
 ### button 
