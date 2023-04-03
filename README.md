@@ -78,17 +78,15 @@ npm install @mui/material @emotion/react @emotion/styled
 
 <a name="item1"></a>
 ## assets
- ---
+
 Está carpeta es la encargada de guardar las imagenes que se van a utilizar en la APP.
 
 <a name="item2"></a>
 ## Components
- ---
 Los componentes le permiten separar la interfaz de usuario en piezas independientes y reutilizables y pensar en cada pieza de forma aislada. Esta página proporciona una introducción a la idea de los componentes. Puede encontrar una API detallada sobre los componentes aquí.
 
 <a name="item2"></a>
 ### button 
----
 Esta carpeta contiene el componente botón donde recibe el color y el texto por parámetro. Se utilizó material de interfaz de usuario. 
 
 #### Code:
