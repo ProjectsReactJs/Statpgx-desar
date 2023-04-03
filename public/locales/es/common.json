@@ -87,13 +87,59 @@
 		"name": "Nombre del Medicamento",
 		"condition": "Condición que está tratando con este medicamento",
 		"diagnosis": "Diagnóstico Relevante",
+		"info": "Información del Medicamento",
+		"goback": "Regresar",
+		"next": "Siguiente",
 		"previewModal": {
 			"title": "Previsualización de la data en formato JSON"
+		},
+		"topic": {
+			"boxed_warning": "Advertencia Recuadro",
+			"contraindications": "Contraindicaciones",
+			"warnings_and_cautions": "Advertencias y Precauciones",
+			"adverse_reactions": "Reacciones Adversas",
+			"drug_interactions": "Interacciones con la Drogas",
+			"pregnancy": "El Embarazo",
+			"geriatric_use": "Geriátrico"
+		},
+		"firme": {
+			"sign": "Firmar",
+			"clear": "Borrar"
+		},
+		"patient": {
+			"title": "Información del Paciente",
+			"FirstName": "Nombre",
+			"LastName": "Apellido",
+			"DateBirth": "Fecha de Nacimiento",
+			"SexAssig": "Sexo Asignado antes de Nacer",
+			"Address": "Dirección",
+			"Telephone": "Telefono",
+			"Email": "Correo Electrónico",
+			"consentSection": "Sección de consentimiento",
+			"Iagress": "Agregar"
 		}
 	},
 	"validation": {
 		"messages": {
-			"required": "El campo es requerido"
+			"required": "El campo es requerido",
+			"format": "Formato Invalido",
+			"sexAssig": "Seleccionar el Sexo",
+			"firstName": "Nombre demasiado corto",
+			"lastName": "Apellido demasiado corto",
+			"address": "Dirección larga",
+			"telephone": "Numero Invalido",
+			"date": "Fecha Incorrecta, debe ser YYYY-MM-DD",
+			"alfa": "Solo se permiten caracteres ",
+			"teleAlfa": "Solo se permite este formato +0000",
+			"sign": "Debe Ingresar una Firma",
+			"dateI": "Debes ingresar una fecha válida",
+			"dateMax": "La fecha no puede ser mayor que hoy",
+			"dateMin": "La fecha no puede ser menor que 1900-01-01"
 		}
+	},
+	"doctorSure": {
+		"title": "Información del Doctor y Seguro",
+		"ConfirmYourDoctor": "Confirma tu Doctor",
+		"ConfirmYourInsurance": "Confirma tu Seguro"
 	}
 }

@@ -6,5 +6,4 @@ export default styled(Paper)(({ theme }) => ({
 	flexDirection: 'column',
 	flex: 1,
 	overflowY: 'auto',
-	paddingBottom: theme.spacing(2),
 }));

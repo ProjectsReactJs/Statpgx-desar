@@ -83,13 +83,59 @@
 		"name": "Name of Medication",
 		"condition": "Condition you are treating with this medication",
 		"diagnosis": "Relevant Diagnosis",
+		"info": "Info of Medication",
+		"goback": "Go Back",
+		"next": "Next",
 		"previewModal": {
 			"title": "Preview data in JSON format"
+		},
+		"topic": {
+			"boxed_warning": "Boxed Warning",
+			"contraindications": "Contraindications",
+			"warnings_and_cautions": "Warnings And Cautions",
+			"adverse_reactions": "Adverse Reactions",
+			"drug_interactions": "Drug Interactions",
+			"pregnancy": "Pregnancy",
+			"geriatric_use": "Geriatric Use"
+		},
+		"firme": {
+			"sign": "Sign",
+			"clear": "Clear"
+		},
+		"patient": {
+			"title": "Patient Information",
+			"FirstName": "First name",
+			"LastName": "Last name",
+			"DateBirth": "Date of birth",
+			"SexAssig": "Sex assigned at birth",
+			"Address": "Address",
+			"Telephone": "Telephone",
+			"Email": "Email",
+			"consentSection": "Consent Section",
+			"Iagress": "I Agress"
 		}
 	},
 	"validation": {
 		"messages": {
-			"required": "The field is required"
+			"required": "The field is required",
+			"format": "Invalid format",
+			"sexAssig": "Select the sex",
+			"firstName": "the name must be longer",
+			"lastName": "last name must be longer",
+			"address": "last address must be longer ",
+			"telephone": "Invalid number",
+			"date": "Invalid Date, must be YYYY-MM-DD ",
+			"alfa": "Only alphanumeric characters",
+			"teleAlfa": "Only this format is allowed +0000",
+			"sign": "You must enter a signature",
+			"dateI": "You must enter a valid date",
+			"dateMax": "The date cannot be greater than today",
+			"dateMin": "The date cannot be less than 1900-01-01"
 		}
+	},
+	"doctorSure": {
+		"title": "Doctor and Insurance Information",
+		"ConfirmYourDoctor": "Confirm your Doctor",
+		"ConfirmYourInsurance": "Confirm your Insurance"
 	}
 }

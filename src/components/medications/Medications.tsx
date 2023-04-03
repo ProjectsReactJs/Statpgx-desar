@@ -1,58 +1,54 @@
-import { useTranslation } from 'next-i18next';
-import { Formik, FormikHelpers } from "formik";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { MedicationsFormValues, defaultValues } from './medicationsHelper';
-import useMedications from '@src/hooks/useMedications';
-import MedicationsForm from '@src/components/medications/MedicationsForm';
 import { useState } from 'react';
-
-type PreviewDataDialogProps = {
-    showPreview: boolean;
-    onHidePreview: () => void;
-    values: MedicationsFormValues
-}
-
-const PreviewDataDialog = (props: PreviewDataDialogProps) => {
-    const { t } = useTranslation();
-
-    const { showPreview, onHidePreview, values } = props;
-
-    return (
-        <Dialog
-            open={showPreview}
-            onClose={onHidePreview}
-            aria-labelledby="medication-preview-title"
-            aria-describedby="medication-dialog-description"
-            fullWidth
-            maxWidth={'md'}
-        >
-            <DialogTitle id="medication-preview-title">
-                {t('medication.previewModal.title')}
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText id="medication-dialog-description">
-                    <pre>{JSON.stringify(props.values, null, 2)}</pre>
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={onHidePreview}>
-                    {t('medication.form.actions.close')}
-                </Button>
-            </DialogActions>
-        </Dialog>
-    )
-}
+import { useTranslation } from 'next-i18next';
+import useMedications from '@src/hooks/useMedications';
+import useDoctors from '@src/hooks/useDoctors';
+import MedicationsOutputSection from './output-section/MedicationsOutputSection';
+import MedicationsMainSection from './main-section/MedicationsMainSection';
+import { MedicationsFormValues, defaultValues } from './medicationsHelper';
+import MedicationsPatientInfoSection from './patient-info-section/MedicationsPatientInfoSection';
+import MedicationsPreviewDataDialog from './main-section/MedicationsPreviewDataDialog';
+import MedicationsDoctorSection from './welcome-section/MedicationsDoctorSection';
+import useInsurances from '@src/hooks/useInsurances';
 
 export default function Medications() {
     const { t } = useTranslation();
 
     const { medications = [] } = useMedications();
 
+    const { doctors = [] } = useDoctors();
+
+    const { insurance = [] } = useInsurances();
+
+    const [data, setData] = useState<MedicationsFormValues>(defaultValues);
+
+    const [currentStep, setCurrentStep] = useState(0);
+
     const [showPreview, setShowPreview] = useState(false);
 
-    const onSubmit = async (values: MedicationsFormValues, actions: FormikHelpers<MedicationsFormValues>) => {
-        //
-    };
+    const handlePrev = (newData: MedicationsFormValues) => {
+        setData(prevData => ({
+            ...prevData,
+            ...newData
+        }));
+
+        setCurrentStep(step => step - 1);
+    }
+
+    const handleNext = (newData: MedicationsFormValues) => {
+        setData(prevData => ({
+            ...prevData,
+            ...newData
+        }));
+
+        setCurrentStep(step => step + 1);
+    }
+
+    const handleEnd = (newData: MedicationsFormValues) => {
+        setData(prevData => ({
+            ...prevData,
+            ...newData
+        }));
+    }
 
     const handleShowPreview = () => {
         setShowPreview(true);
@@ -62,34 +58,42 @@ export default function Medications() {
         setShowPreview(false);
     }
 
-    return (
-        <>
-            <Formik
-                initialValues={defaultValues}
-                onSubmit={onSubmit}
-                validate={(values: MedicationsFormValues) => {
-                    return {
-                        medications: values.medications.map(medication => ({
-                            medicationId: medication.medicationId ? null : t('validation.messages.required'),
-                            conditionTreatmentId: medication.conditionTreatmentId ? null : t('validation.messages.required'),
-                            diagnosisId: medication.diagnosisId ? null : t('validation.messages.required'),
-                        }))
-                    };
-                }}
-                enableReinitialize
-            >
-                {(props) => (
-                    <>
-                        <MedicationsForm {...props} onShowPreview={handleShowPreview} medications={medications} />
+    const steps = [
 
-                        <PreviewDataDialog
-                            showPreview={showPreview}
-                            onHidePreview={handleHidePreview}
-                            values={props.values}
-                        />
-                    </>
-                )}
-            </Formik >
-        </>
-    );
+        <MedicationsDoctorSection
+            data={data}
+            doctors={doctors}
+            insurance={insurance}
+            onShowPreview={handleShowPreview}
+            onNext={handleNext}
+        />,
+        <MedicationsMainSection
+            onShowPreview={handleShowPreview}
+            onNext={handleNext}
+            onPrev={handlePrev}
+            data={data}
+            medications={medications}
+        />,
+        <MedicationsOutputSection
+            onPrev={handlePrev}
+            onNext={handleNext}
+            data={data}
+        />,
+        <MedicationsPatientInfoSection
+            onShowPreview={handleShowPreview}
+            onPrev={handlePrev}
+            onEnd={handleEnd}
+            data={data}
+        />
+    ];
+
+    return <>
+        {steps[currentStep]}
+
+        <MedicationsPreviewDataDialog
+            showPreview={showPreview}
+            onHidePreview={handleHidePreview}
+            values={data}
+        />
+    </>
 }
