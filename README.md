@@ -89,9 +89,8 @@ Los componentes le permiten separar la interfaz de usuario en piezas independien
 <a name="item2"></a>
 ### button 
 ---
-This folder contains the button component where it receives the color and text by parameter. UI material was used.
+Esta carpeta contiene el componente botón donde recibe el color y el texto por parámetro. Se utilizó material de interfaz de usuario. 
 
-<a name="item3"></a>
 #### Code:
 
 ```
