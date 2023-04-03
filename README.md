@@ -24,8 +24,9 @@ The page should display all the corresponding fields as in the mockup.
 ![](https://i.imgur.com/xtn1GxT.png)
 
 ## Technology Used
-* [React]
+* [ReactJS]
 * [Material UI]
+* [NextJS]
 
 ## Installation
 ```
@@ -46,12 +47,34 @@ npm install @mui/material @emotion/react @emotion/styled
 ```
 
 ## Content
-* [Components](#item1)
-* [button](#item2)
-	 * [Button.js](#item3)
-* [OptionSelect.js](#item4)
-* [pages](#item5)
-    * [Medication.js](#item6)
+* [assets](#item)
+* [Components](#item)
+	* [button](#item)
+		 * [Button.js](#item)
+	* [dashboard](#item)
+		* [Dashboard.tsx](#item)
+	* [dialogs](#item)
+		* [ConfirmationDialog.tsx](#item)
+	* [form](#item)
+		* [Select.js](#item)
+	* [header](#item)
+		* [NavBar.js](#item)
+	* [main](#item)
+		* [hooks](#item)
+	* [medications](#item)
+		* [main-section](#item)
+		* [output-section](#item)
+		* [patient-info-section](#item)
+		* [welcome-section](#item)
+	        * [Medications.tsx](#item)
+		* [MedicationsForm.tsx](#item)
+		* [MedicationsHelper.ts](#item)
+	* [settings](#item)
+		* [OptionSelect.js](#item)
+* [hooks](#item)
+* [OptionSelect.js](#item)
+* [pages](#item)
+    * [Medication.js](#item)
 
 <a name="item1"></a>
 ## Components
