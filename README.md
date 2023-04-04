@@ -2296,7 +2296,7 @@ export const defaultValues: MedicationsFormValues = {
 	}
 }
 ```
-<a name="item16"></a>
+<a name="item17"></a>
 ## Settings
 En esta carpeta se encuentra dos archivos settings.tsx y settingsHelper.tsx son archivos encargado de idiama de la App.
 
@@ -2426,13 +2426,6 @@ export const defaultValues: SettingsFormValues = {
 };
 
 ```
-<a name="item16"></a>
-#### MedicationHelper.tsx
-Este archivo es el encargado de la estructura de salida y tipos de datos que recibe cada parametro en nuestra App.
 
-#### Code
-```
-```
-
-### Execution of the first epic of the first sprint
+#### Imagen de ejecución
 ![](https://i.imgur.com/qFw7Hs4.png)
