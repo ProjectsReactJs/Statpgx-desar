@@ -547,7 +547,8 @@ export default MainContent;
 
 <a name="item7"></a>
 #### NavigationItemLink.tsx
-This file is th
+Este componente es el encargado de un item de la barra de navegation. 
+
 #### Code
 ```
 import React from 'react';
@@ -584,7 +585,8 @@ const NavigationItemLink: React.FC<NavigationItemLinkProps> = (props) => {
 
 <a name="item7"></a>
 #### NavigationItemWithSubItems.tsx
-This file is th
+Este componente es el encargado de unir todos los item del navegación donde es el diseño y validacion de cada items de la App.
+
 #### Code
 ```
 import React, { useEffect, useState } from 'react';
@@ -684,7 +686,8 @@ export default NavigationItemWithSubItemsLink;
 
 <a name="item7"></a>
 #### NavigationList.tsx
-This file is th
+Este componente es parte también del navigation de la app.
+
 #### Code
 ```
 import React from 'react';
@@ -866,64 +869,112 @@ export default Page;
 #### Medication / main-section / output-section / patient-info-section / welcome-section 
 Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
 
+<a name="item8"></a>
+#### Medication.tsx
+Este archivo es la encargada de la llamada de las vista principales de medication de la App.
+
 #### Code
 ```
-import { Container, Grid, Typography } from "@mui/material";
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import OptionSelect from "../components/OptionSelect";
-import Button from "../components/button/Button";
+import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import useMedications from '@src/hooks/useMedications';
+import useDoctors from '@src/hooks/useDoctors';
+import MedicationsOutputSection from './output-section/MedicationsOutputSection';
+import MedicationsMainSection from './main-section/MedicationsMainSection';
+import { MedicationsFormValues, defaultValues } from './medicationsHelper';
+import MedicationsPatientInfoSection from './patient-info-section/MedicationsPatientInfoSection';
+import MedicationsPreviewDataDialog from './main-section/MedicationsPreviewDataDialog';
+import MedicationsDoctorSection from './welcome-section/MedicationsDoctorSection';
+import useInsurances from '@src/hooks/useInsurances';
 
-const Item = styled('div')(({ theme }) => ({
-    padding: theme.spacing(2),
-    fontStyle: 'normal',
-    color: theme.palette.text.secondary,
-    fontSize: 20,
-    borderRadius: 1,
-    border: 1,
-    margin: 4,
-}));
+export default function Medications() {
+    const { t } = useTranslation();
 
-const Medication = () => {
-    return (
-        <Box>
-            <Container>
-                <Typography my={8} variant="h5" color={"grey"}>CURRENT AND PROSPECTIVE MEDICATIONS</Typography>
-                <Paper>
-                    <Grid container padding={2}>
-                        <Grid item xs={5}  >
-                            <Item>Name of Medication</Item>
-                        </Grid>
-                        <Grid item xs={7} >
-                            <OptionSelect />
-                        </Grid>
-                        <Grid item xs={5} >
-                            <Item>Condition you are treating with this medication</Item>
-                        </Grid>
-                        <Grid item xs={7}>
-                            <OptionSelect />
-                        </Grid>
-                        <Grid item xs={5}>
-                            <Item>Relevant Diagnosis</Item>
-                        </Grid>
-                        <Grid item xs={7}>
-                            <OptionSelect />
-                        </Grid>
-                    </Grid>
-                    <div style={{ textAlign: 'right' }}>
-                        <Button color="error" children="Add medication" />
-                    </div>
-                </Paper>
-                <Box py={2}>
-                    <Button color="info" children="Submit" />
-                </Box>
-            </Container>
-        </Box>
-    );
+    const { medications = [] } = useMedications();
+
+    const { doctors = [] } = useDoctors();
+
+    const { insurance = [] } = useInsurances();
+
+    const [data, setData] = useState<MedicationsFormValues>(defaultValues);
+
+    const [currentStep, setCurrentStep] = useState(0);
+
+    const [showPreview, setShowPreview] = useState(false);
+
+    const handlePrev = (newData: MedicationsFormValues) => {
+        setData(prevData => ({
+            ...prevData,
+            ...newData
+        }));
+
+        setCurrentStep(step => step - 1);
+    }
+
+    const handleNext = (newData: MedicationsFormValues) => {
+        setData(prevData => ({
+            ...prevData,
+            ...newData
+        }));
+
+        setCurrentStep(step => step + 1);
+    }
+
+    const handleEnd = (newData: MedicationsFormValues) => {
+        setData(prevData => ({
+            ...prevData,
+            ...newData
+        }));
+    }
+
+    const handleShowPreview = () => {
+        setShowPreview(true);
+    }
+
+    const handleHidePreview = () => {
+        setShowPreview(false);
+    }
+
+    const steps = [
+
+        <MedicationsDoctorSection
+            data={data}
+            doctors={doctors}
+            insurance={insurance}
+            onShowPreview={handleShowPreview}
+            onNext={handleNext}
+        />,
+        <MedicationsMainSection
+            onShowPreview={handleShowPreview}
+            onNext={handleNext}
+            onPrev={handlePrev}
+            data={data}
+            medications={medications}
+        />,
+        <MedicationsOutputSection
+            onPrev={handlePrev}
+            onNext={handleNext}
+            data={data}
+        />,
+        <MedicationsPatientInfoSection
+            onShowPreview={handleShowPreview}
+            onPrev={handlePrev}
+            onEnd={handleEnd}
+            data={data}
+        />
+    ];
+
+    return <>
+        {steps[currentStep]}
+
+        <MedicationsPreviewDataDialog
+            showPreview={showPreview}
+            onHidePreview={handleHidePreview}
+            values={data}
+        />
+    </>
 }
 
-export default Medication;
 ```
 
 ### Execution of the first epic of the first sprint
