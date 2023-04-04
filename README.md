@@ -870,7 +870,7 @@ export default Page;
 Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
 
 <a name="item10"></a>
-#### main-section
+## main-section
 Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
 
 #### MedicationsMainSection.tsx
@@ -928,7 +928,7 @@ const MedicationsMainSection = (props: MedicationsMainSectionProps) => {
 export default MedicationsMainSection;
 ```
 
-#### MedicationsMainSectionForm.tsx
+## MedicationsMainSectionForm.tsx
 Este archivo es el encargado del formulario de agregar medicamentos, condición relevante y diagnostico de la App.
 
 #### Code
@@ -1185,7 +1185,7 @@ const MedicationsMainSectionForm = (props: MedicationsMainSectionFormProps) => {
 export default MedicationsMainSectionForm;
 ```
 
-#### MedicationsPreviewDataDialog.tsx
+## MedicationsPreviewDataDialog.tsx
 En este archivo hacemos el diseño completo de un cuadro de dialogo donde se muestra la salida de las props en un formato JSON.
 
 #### Code
@@ -1233,7 +1233,7 @@ export default MedicationsPreviewDataDialog;
 ```
 
 <a name="item11"></a>
-#### output-section
+## output-section
 Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
 
 #### MedicationsOutputSection.tsx
@@ -1401,7 +1401,7 @@ export default function MedicationsSummaryAccordion(props: MedicationsSummaryAcc
 ```
 
 <a name="item12"></a>
-#### patient-info-section
+## patient-info-section
 Esta carpeta contiene los archivos MedicationsPatientInfoSections, MedicationsPatientInfoSectionsForm y MedicationsSign.
 
 #### MedicationsPatientInfoSections.tsx
