@@ -763,7 +763,8 @@ export default NavigationList;
 
 <a name="item7"></a>
 #### Page.tsx
-This file is th
+Este archivo es el encargado de armar en archivo que se muestra principal en la App, donde se hace la llamada a los demas componentes creado.
+
 #### Code
 ```
 import React, { useEffect, useState } from 'react';
