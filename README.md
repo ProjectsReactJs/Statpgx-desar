@@ -869,7 +869,7 @@ export default Page;
 #### Medication / main-section / output-section / patient-info-section / welcome-section 
 Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
 
-<a name="item8"></a>
+<a name="item14"></a>
 #### Medication.tsx
 Este archivo es la encargada de la llamada de las vista principales de medication de la App.
 
@@ -976,6 +976,293 @@ export default function Medications() {
 }
 
 ```
+<a name="item15"></a>
+#### MedicationsForm.tsx
+Este archivo es la encargada de la llamada de las vista principales de medication de la App.
 
+#### Code
+```
+import { useTranslation } from "next-i18next";
+import { Button, Grid, MenuItem } from '@mui/material';
+import { Field, FieldArray, Form as FormikForm, FormikProps } from "formik";
+import SaveIcon from '@mui/icons-material/Save';
+import QueueIcon from '@mui/icons-material/Queue';
+import PreviewIcon from '@mui/icons-material/Preview';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import useConditionTreatments from "@src/hooks/useConditionTreatments";
+import { TextField } from "@src/ui/forms/controls/TextField";
+import useRelevantDiagnosis from "@src/hooks/useRelevantDiagnosis";
+import { MedicationsFormValues } from "./medicationsHelper";
+import { Medication } from "types/interfaces";
+import FormHeader from "@src/ui/forms/FormHeader";
+import FormTitle from "@src/ui/forms/FormTitle";
+import FormInnerContainer from "@src/ui/forms/FormInnerContainer";
+import FormConainter from "@src/ui/forms/FormConainter";
+import theme from "@src/theme";
+import FormFooter from "@src/ui/forms/FormFooter";
+
+const MAX_NUMBER_OF_MEDICATIONS = 8;
+
+type ConditionsTreatmentsSelectProps = {
+    id: string;
+    name: string;
+    medicationId: number;
+}
+
+const ConditionsTreatmentsSelect = (props: ConditionsTreatmentsSelectProps) => {
+    const { id, name, medicationId } = props;
+
+    const { t } = useTranslation();
+
+    const { conditionTreatments = [] } = useConditionTreatments({
+        queryParams: {
+            medicationId,
+        }
+    });
+
+    return (
+        <Field
+            fullWidth
+            select
+            id={id}
+            name={name}
+            label={t('medication.form.fields.conditionTreatment')}
+            component={TextField}
+            required
+            disabled={!medicationId}
+        >
+            {conditionTreatments.map((option) => (
+                <MenuItem key={option.id} value={option.id}>
+                    {`${option.name} - ${option.description}`}
+                </MenuItem>
+            ))}
+        </Field>
+    )
+}
+
+type RelevantDiagnosisSelectProps = {
+    id: string;
+    name: string;
+    medicationId: number;
+    conditionTreatmentId: number;
+}
+
+const RelevantDiagnosisSelect = (props: RelevantDiagnosisSelectProps) => {
+    const { id, name, medicationId, conditionTreatmentId } = props;
+
+    const { t } = useTranslation();
+
+    const { relevantDiagnosis = [] } = useRelevantDiagnosis({
+        queryParams: {
+            medicationId,
+            conditionTreatmentId,
+        }
+    });
+
+    return (
+        <Field
+            fullWidth
+            select
+            id={id}
+            name={name}
+            label={t('medication.form.fields.diagnosis')}
+            component={TextField}
+            required
+            disabled={!medicationId || !conditionTreatmentId}
+        >
+            {relevantDiagnosis.map((option) => (
+                <MenuItem key={option.id} value={option.id}>
+                    {`${option.name} - ${option.description}`}
+                </MenuItem>
+            ))}
+        </Field>
+    )
+}
+
+type MedicationsFormProps = FormikProps<MedicationsFormValues> & {
+    medications: Medication[];
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onShowPreview: () => void,
+};
+
+const MedicationsForm = (props: MedicationsFormProps) => {
+    const { medications, values, onShowPreview } = props;
+    const { t } = useTranslation();
+
+    return (
+        <FormikForm noValidate autoComplete="false">
+            <FormHeader>
+                <FormTitle variant="h6" color="inherit" noWrap>
+                    {t('medication.title')}
+                </FormTitle>
+            </FormHeader>
+
+            <FieldArray name='medications'>
+                {({ push, remove }) => (
+                    <>
+                        {values.medications.map((_, index) => <FormConainter key={index} style={{ marginBottom: theme.spacing(3) }}>
+                            <FormInnerContainer>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={4}>
+                                        {t('medication.name')}
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        <Field
+                                            fullWidth
+                                            select
+                                            id={`medications-${index}-medicationId`}
+                                            name={`medications.${index}.medicationId`}
+                                            label={t('medication.form.fields.medicationName')}
+                                            component={TextField}
+                                            required
+                                        >
+                                            {medications.map((option) => (
+                                                <MenuItem key={option.id} value={option.id}>
+                                                    {`${option.label}`}
+                                                </MenuItem>
+                                            ))}
+                                        </Field>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        {t('medication.condition')}
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        <ConditionsTreatmentsSelect
+                                            id={`medications-${index}-conditionTreatmentId`}
+                                            name={`medications.${index}.conditionTreatmentId`}
+                                            medicationId={values.medications[index].medicationId}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        {t('medication.diagnosis')}
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        <RelevantDiagnosisSelect
+                                            id={`medications-${index}-diagnosisId`}
+                                            name={`medications.${index}.diagnosisId`}
+                                            medicationId={values.medications[index].medicationId}
+                                            conditionTreatmentId={values.medications[index].conditionTreatmentId}
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </FormInnerContainer>
+                            <FormFooter>
+                                <Button
+                                    startIcon={<DeleteForeverIcon />}
+                                    variant="contained"
+                                    color='error'
+                                    sx={(theme) => ({ margin: theme.spacing(1) })}
+                                    onClick={() => remove(index)}
+                                >
+                                    {t('medication.form.actions.remove')}
+                                </Button>
+                            </FormFooter>
+                        </FormConainter>)}
+
+                        {values.medications.length < MAX_NUMBER_OF_MEDICATIONS && <Button
+                            startIcon={<QueueIcon />}
+                            variant="contained"
+                            color='success'
+                            sx={(theme) => ({ margin: theme.spacing(1) })}
+                            onClick={() => push({
+                                medicationId: 0,
+                                conditionTreatmentId: 0,
+                                diagnosisId: 0,
+                            })}
+                        >
+                            {t('medication.form.actions.add')}
+                        </Button>
+                        }
+                        <Button
+                            type="submit"
+                            startIcon={<PreviewIcon />}
+                            variant="contained"
+                            color='secondary'
+                            sx={(theme) => ({ margin: theme.spacing(1) })}
+                            onClick={onShowPreview}
+                        >
+                            {t('medication.form.actions.showPreview')}
+                        </Button>
+                        <Button
+                            type="submit"
+                            startIcon={<SaveIcon />}
+                            variant="contained"
+                            color='primary'
+                            sx={(theme) => ({ margin: theme.spacing(1) })}
+                        >
+                            {t('medication.form.actions.save')}
+                        </Button>
+                    </>
+                )}
+            </FieldArray>
+        </FormikForm>
+    );
+}
+
+export default MedicationsForm;
+```
+
+<a name="item16"></a>
+#### MedicationHelper.tsx
+Este archivo es la encargada de la llamada de las vista principales de medication de la App.
+
+#### Code
+```
+import { ConditionTreatment, Medication, RelevantDiagnosis } from "types/interfaces";
+
+export type MedicationsFormValues = {
+	currentMedicationIndex: number,
+	doctorInfo: {
+		doctorId: number;
+		insuranceId: number;
+	},
+	medications: {
+		medicationId: number;
+		conditionTreatmentId: number;
+		diagnosisId: number;
+	}[],
+	medicationsFullInfo: {
+		medication: Medication;
+		conditionTreatment: ConditionTreatment;
+		diagnosis: RelevantDiagnosis;
+	}[],
+	patientInfo: {
+		firstName: string;
+		lastName: string;
+		address: string;
+		telephone: string;
+		email: string;
+		dateBirth: string;
+		sexAssig: string;
+		sign: string;
+		agreeToConsent: boolean;
+	}
+};
+
+export const defaultValues: MedicationsFormValues = {
+	currentMedicationIndex: 0,
+	doctorInfo: {
+		doctorId: 0,
+		insuranceId: 0,
+	},
+	medications: [{
+		medicationId: 0,
+		conditionTreatmentId: 0,
+		diagnosisId: 0,
+	}],
+	medicationsFullInfo: [],
+	patientInfo: {
+		firstName: '',
+		lastName: '',
+		address: '',
+		telephone: '',
+		email: '',
+		dateBirth: '',
+		sexAssig: '',
+		sign: '',
+		agreeToConsent: false,
+	}
+}
+```
 ### Execution of the first epic of the first sprint
 ![](https://i.imgur.com/qFw7Hs4.png)
