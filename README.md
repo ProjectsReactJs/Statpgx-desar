@@ -978,7 +978,7 @@ export default function Medications() {
 ```
 <a name="item15"></a>
 #### MedicationsForm.tsx
-Este archivo es la encargada de la llamada de las vista principales de medication de la App.
+Este archivo es el encargado del formulario de medicamentos de nuestro app.
 
 #### Code
 ```
@@ -1204,7 +1204,7 @@ export default MedicationsForm;
 
 <a name="item16"></a>
 #### MedicationHelper.tsx
-Este archivo es la encargada de la llamada de las vista principales de medication de la App.
+Este archivo es el encargado de la estructura de salida y tipos de datos que recibe cada parametro en nuestra App.
 
 #### Code
 ```
