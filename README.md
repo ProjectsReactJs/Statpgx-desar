@@ -1236,6 +1236,8 @@ const MedicationsPreviewDataDialog = (props: MedicationsPreviewDataDialogProps) 
 
 export default MedicationsPreviewDataDialog;
 ```
+#### Imagen de ejecución
+![](https://i.imgur.com/MGBGd6g.png)
 
 <a name="item11"></a>
 ## output-section
@@ -1343,6 +1345,8 @@ const MedicationsOutputSection = (props: MedicationsOutputSectionProps) => {
 
 export default MedicationsOutputSection;
 ```
+#### Imagen de ejecución
+![](https://i.imgur.com/uVEYVAj.png)
 
 #### MedicationsSummaryAccordion.tsx
 En este archivo se muestra la información necesaria del medicamento seleccionado de forma de accordion, utilizando material UI. 
@@ -1404,6 +1408,8 @@ export default function MedicationsSummaryAccordion(props: MedicationsSummaryAcc
     );
 }
 ```
+#### Imagen de ejecución
+![](https://i.imgur.com/7XUYC7Q.png)
 
 <a name="item12"></a>
 ## patient-info-section
@@ -1682,6 +1688,8 @@ export default function MedicationsPatientInfoSectionForm(props: MedicationsPati
 
 
 ```
+#### Imagen de ejecución
+![](https://i.imgur.com/ZLvJEtn.png)
 
 #### MedicationsSign.tsx
 Este componente es el encargado de la firma digital del formulario de paciente de la App.
@@ -1738,6 +1746,8 @@ export default function MedicationsSign(props: MedicationSignProps) {
     )
 }
 ```
+#### Imagen de ejecución
+![](https://i.imgur.com/66sWdkp.png)
 
 <a name="item13"></a>
 #### welcome-section 
@@ -1906,6 +1916,9 @@ export default function MedicationsDoctorSectionForm(props: MedicationsDoctorSec
     )
 }
 ```
+#### Imagen de ejecución
+![](https://i.imgur.com/NrXuKnM.png)
+
 <a name="item14"></a>
 #### Medication.tsx
 Este archivo es la encargada de la llamada de las vista principales de medication de la App.
