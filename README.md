@@ -1405,7 +1405,7 @@ export default function MedicationsSummaryAccordion(props: MedicationsSummaryAcc
 Esta carpeta contiene los archivos MedicationsPatientInfoSections, MedicationsPatientInfoSectionsForm y MedicationsSign.
 
 #### MedicationsPatientInfoSections.tsx
-En este archivo es el encargado de las llamadas del archivo MedicationsMainSectionForm y validaciones con YUP  y declaraciones de tipos de datos y funcionamiento de los onclick de los button.
+En este archivo es el encargado de las llamadas del archivo MedicationsPatientInfoSectionsForm y validaciones con YUP  y declaraciones de tipos de datos y funcionamiento de los onclick de los button.
 
 #### Code
 ```
@@ -1736,8 +1736,171 @@ export default function MedicationsSign(props: MedicationSignProps) {
 
 <a name="item13"></a>
 #### welcome-section 
-Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
+En esta carpeta se encarga de la información del doctor de la App.
 
+#### MedicationsDoctorSection.tsx
+En este archivo es el encargado de las llamadas del archivo MedicationsDoctorSectionForm y validaciones con YUP  y declaraciones de tipos de datos y funcionamiento de los onclick de los button.
+
+#### Code
+```
+import { useTranslation } from "next-i18next";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { MedicationsFormValues } from "../medicationsHelper";
+import { Doctors } from 'types/interfaces';
+import { Insurance } from 'types/interfaces';
+import MedicationsDoctorSectionForm from "./MedicationsDoctorSectionForm";
+
+type MedicationsDoctorSectionProps = {
+    data: MedicationsFormValues;
+    onNext: (data: MedicationsFormValues) => void;
+    doctors: Doctors[];
+    insurance: Insurance[];
+    onShowPreview: () => void;
+
+}
+
+const doctorSectionSchema = (t: (text: string) => string) => Yup.object().shape({
+    doctorInfo: Yup.object().shape({
+        doctorId: Yup.number().min(1, (t("validation.messages.required"))).required(t("validation.messages.required")),
+        insuranceId: Yup.number().min(1, (t("validation.messages.required"))).required(t("validation.messages.required")),
+    })
+});
+
+const MedicationsDoctorSection = (props: MedicationsDoctorSectionProps) => {
+    const { data, onNext, doctors, insurance, onShowPreview } = props;
+
+    const { t } = useTranslation();
+
+    const onSubmit = async (values: MedicationsFormValues) => {
+        onNext(values);
+    };
+
+    return (
+        <Formik
+            initialValues={data}
+            onSubmit={onSubmit}
+            validationSchema={doctorSectionSchema(t)}
+            enableReinitialize
+        >
+            {(props) => (
+                <MedicationsDoctorSectionForm {...props} onShowPreview={onShowPreview} doctors={doctors} insurance={insurance} onNext={onNext} />
+            )}
+        </Formik >
+    )
+}
+export default MedicationsDoctorSection;
+```
+
+#### MedicationsDoctorSectionsForm.tsx
+En este archivo podenos tener llos input para seleccionar el doctor y seguro en la App.
+
+#### Code
+```
+import { Form as FormikForm, FormikProps, Field, FieldArray } from "formik";
+import FormHeader from "@src/ui/forms/FormHeader";
+import FormTitle from "@src/ui/forms/FormTitle";
+import PreviewIcon from '@mui/icons-material/Preview';
+import EastIcon from '@mui/icons-material/East';
+import FormInnerContainer from "@src/ui/forms/FormInnerContainer";
+import FormConainter from "@src/ui/forms/FormConainter";
+import { Button, MenuItem, Grid } from '@mui/material';
+import { TextField } from "@src/ui/forms/controls/TextField";
+import { useTranslation } from "next-i18next";
+import { MedicationsFormValues } from "../medicationsHelper";
+import { Doctors } from "types/interfaces";
+import { Insurance } from "types/interfaces";
+
+type MedicationsDoctorSectionFormProps = FormikProps<MedicationsFormValues> & {
+    doctors: Doctors[];
+    insurance: Insurance[];
+    onNext: (data: MedicationsFormValues) => void;
+    onShowPreview: () => void;
+};
+
+export default function MedicationsDoctorSectionForm(props: MedicationsDoctorSectionFormProps) {
+    const { doctors, insurance, onShowPreview } = props;
+    const { t } = useTranslation();
+
+    return (
+        <>
+            <FormikForm noValidate autoComplete="false">
+                <FormHeader>
+                    <FormTitle variant="h6" color="inherit" noWrap>
+                        {t('doctorSure.title')}
+                    </FormTitle>
+                </FormHeader>
+                <FormConainter>
+                    <FormInnerContainer>
+                        <Grid container spacing={2}>
+                            <Grid item xs={4}>
+                                {t('doctorSure.ConfirmYourDoctor')}
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Field
+                                    fullWidth
+                                    select
+                                    id="doctorInfo.doctorId"
+                                    name="doctorInfo.doctorId"
+                                    label={t('doctorSure.ConfirmYourDoctor')}
+                                    component={TextField}
+                                    required
+                                >
+                                    {doctors.map((option) => (
+                                        <MenuItem key={option.id} value={option.id}>
+                                            {`${option.name} - ${option.specialty}`}
+                                        </MenuItem>
+                                    ))}
+                                </Field>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={2}>
+                            <Grid item xs={4}>
+                                {t('doctorSure.ConfirmYourInsurance')}
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Field
+                                    fullWidth
+                                    select
+                                    id="doctorInfo.insuranceId"
+                                    name="doctorInfo.insuranceId"
+                                    label={t('doctorSure.ConfirmYourInsurance')}
+                                    component={TextField}
+                                    required
+                                >
+                                    {insurance.map((option) => (
+                                        <MenuItem key={option.id} value={option.id}>
+                                            {option.name}
+                                        </MenuItem>
+                                    ))}
+                                </Field>
+                            </Grid>
+                        </Grid>
+                    </FormInnerContainer>
+                </FormConainter>
+                <Button
+                    startIcon={<PreviewIcon />}
+                    variant="outlined"
+                    color='secondary'
+                    sx={(theme) => ({ margin: theme.spacing(1) })}
+                    onClick={onShowPreview}
+                >
+                    {t('medication.form.actions.showPreview')}
+                </Button>
+                <Button
+                    type="submit"
+                    startIcon={<EastIcon />}
+                    variant="contained"
+                    color='primary'
+                    sx={(theme) => ({ margin: theme.spacing(1) })}
+                >
+                    {t('medication.next')}
+                </Button>
+            </FormikForm >
+        </>
+    )
+}
+```
 <a name="item14"></a>
 #### Medication.tsx
 Este archivo es la encargada de la llamada de las vista principales de medication de la App.
