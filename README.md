@@ -2446,6 +2446,5 @@ export const defaultValues: SettingsFormValues = {
 };
 
 ```
-
 #### Imagen de ejecución
 ![](https://i.imgur.com/Ug83Tn6.png)
