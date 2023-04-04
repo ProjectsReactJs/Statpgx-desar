@@ -1402,7 +1402,337 @@ export default function MedicationsSummaryAccordion(props: MedicationsSummaryAcc
 
 <a name="item12"></a>
 #### patient-info-section
-Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
+Esta carpeta contiene los archivos MedicationsPatientInfoSections, MedicationsPatientInfoSectionsForm y MedicationsSign.
+
+#### MedicationsPatientInfoSections.tsx
+En este archivo es el encargado de las llamadas del archivo MedicationsMainSectionForm y validaciones con YUP  y declaraciones de tipos de datos y funcionamiento de los onclick de los button.
+
+#### Code
+```
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { useTranslation } from "next-i18next";
+import { format } from "date-fns";
+import { MedicationsFormValues } from "../medicationsHelper";
+import { SexOption } from "types/interfaces";
+import MedicationsPatientInfoSectionForm from "./MedicationsPatientInfoSectionForm";
+
+const sexOptions: SexOption[] = [
+    {
+        value: 'F',
+        label: 'Femenino',
+    },
+    {
+        value: 'M',
+        label: 'Masculino',
+    },
+    {
+        value: 'OT',
+        label: 'Otro',
+    },
+];
+
+const medicationsPatientInfoSchema = (t: (text: string) => string) => Yup.object().shape({
+    patientInfo: Yup.object().shape({
+        firstName: Yup.string().matches(/^[a-zA-Z ]*$/, (t("validation.messages.alfa"))).required(t("validation.messages.required")).min(5, (t("validation.messages.firstName"))),
+        lastName: Yup.string().matches(/^[a-zA-Z ]*$/, (t("validation.messages.alfa"))).required(t("validation.messages.required")).min(5, (t("validation.messages.lastName"))),
+        address: Yup.string().required(t("validation.messages.required")).min(20, (t("validation.messages.address"))),
+        telephone: Yup.string().matches(/^[+0-9]+$/, (t("validation.messages.alfa"))).required(t("validation.messages.required")).min(10, (t("validation.messages.telephone"))),
+        email: Yup.string().email((t("validation.messages.format"))).required(t("validation.messages.required")),
+        dateBirth: Yup.date().min(new Date('1900-01-01')).required(t("validation.messages.required")),
+        sexAssig: Yup.mixed().oneOf(sexOptions.map(sex => sex.value), (t('validation.messages.sexAssig'))).required(t("validation.messages.required")),
+        agreeToConsent: Yup.boolean().oneOf([true], t("validation.messages.required")),
+        sign: Yup.mixed().required(t("validation.messages.sign")),
+    })
+});
+
+type MedicationsPatientInfoSectionProps = {
+    data: MedicationsFormValues;
+    onPrev: (data: MedicationsFormValues) => void;
+    onEnd: (data: MedicationsFormValues) => void;
+    onShowPreview: () => void;
+}
+
+const MedicationsPatientInfoSection = (props: MedicationsPatientInfoSectionProps) => {
+    const { data, onPrev, onEnd, onShowPreview } = props;
+
+    const { t } = useTranslation();
+
+    return (
+        <>
+            <Formik
+                initialValues={data}
+                validationSchema={medicationsPatientInfoSchema(t)}
+                onSubmit={(values) => {
+                    onEnd(values);
+                    onShowPreview();
+                }}
+            >
+                {(props) => (
+                    <MedicationsPatientInfoSectionForm {...props} sexOptions={sexOptions} onPrev={onPrev} />
+                )}
+            </Formik>
+        </>
+    )
+}
+
+export default MedicationsPatientInfoSection;
+```
+
+#### MedicationsPatientInfoSectionsForm.tsx
+Este archivo es el encargado del formulario de pacientes, donde es obligatorio llenar todos los campos relacionados de paciente y aceptación de terminos y firma de aceptación.
+
+#### Code
+```
+import { useTranslation } from 'next-i18next';
+import { Field, Form as FormikForm, FormikProps } from "formik";
+import { Grid, Button, MenuItem, TextField as MUITextField, FormHelperText, Box } from '@mui/material';
+import SaveIcon from '@mui/icons-material/Save';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import FormTitle from '@src/ui/forms/FormTitle';
+import FormHeader from '@src/ui/forms/FormHeader';
+import FormConainter from '@src/ui/forms/FormConainter';
+import FormInnerContainer from '@src/ui/forms/FormInnerContainer';
+import MedicationsSign from './MedicationsSign';
+import { TextField } from '@src/ui/forms/controls/TextField';
+import { MedicationsFormValues } from '../medicationsHelper';
+import { SexOption } from 'types/interfaces';
+import { Checkbox } from '@src/ui/forms/controls/Checkbox';
+
+type MedicationsPatientInfoSectionFormProps = FormikProps<MedicationsFormValues> & {
+    sexOptions: SexOption[];
+    onPrev: (data: MedicationsFormValues) => void;
+};
+
+export default function MedicationsPatientInfoSectionForm(props: MedicationsPatientInfoSectionFormProps) {
+    const { values, setFieldValue, sexOptions, onPrev, errors, touched } = props;
+
+    const { t } = useTranslation();
+
+    return (
+        <>
+            <FormikForm noValidate autoComplete="false">
+                <FormHeader>
+                    <FormTitle variant="h6" color="inherit" noWrap>
+                        {t('medication.patient.title')}
+                    </FormTitle>
+                </FormHeader>
+                <FormConainter>
+                    <FormInnerContainer>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                {t('medication.patient.FirstName')}
+                                <Field
+                                    name="patientInfo.firstName"
+                                    id="id"
+                                    label={t('medication.patient.FirstName')}
+                                    component={TextField}
+                                    fullWidth
+                                    required
+                                    placeholder={t('medication.patient.FirstName')}
+                                >
+                                </Field>
+                            </Grid>
+
+                            <Grid item xs={6}>
+                                {t('medication.patient.LastName')}
+                                <Field
+                                    name="patientInfo.lastName"
+                                    fullWidth
+                                    id="id"
+                                    label={t('medication.patient.LastName')}
+                                    component={TextField}
+                                    required
+                                    placeholder={t('medication.patient.LastName')}
+                                >
+                                </Field>
+                            </Grid>
+                            <Grid item xs={12}>
+                                {t('medication.patient.Address')}
+                                <Field
+                                    name="patientInfo.address"
+                                    fullWidth
+                                    id="id"
+                                    label={t('medication.patient.Address')}
+                                    component={TextField}
+                                    required
+                                    placeholder={t('medication.patient.Address')}
+                                >
+                                </Field>
+                            </Grid>
+                            <Grid item xs={6}>
+                                {t('medication.patient.Telephone')}
+                                <Field
+                                    name="patientInfo.telephone"
+                                    fullWidth
+                                    id="id"
+                                    label={t('medication.patient.Telephone')}
+                                    component={TextField}
+                                    required
+                                    placeholder={t('+000000000000')}
+                                >
+                                </Field>
+                            </Grid>
+                            <Grid item xs={6}>
+                                {t('medication.patient.Email')}
+                                <Field
+                                    name="patientInfo.email"
+                                    fullWidth
+                                    id="id"
+                                    label={t('medication.patient.Email')}
+                                    component={TextField}
+                                    required
+                                    placeholder={t('xxxxxxxx@xxxx.xxx')}
+                                >
+                                </Field>
+                            </Grid>
+                            <Grid item xs={6}>
+                                {t('medication.patient.DateBirth')}
+                                <Field
+                                    name="patientInfo.dateBirth"
+                                    fullWidth
+                                    id="id"
+                                    label={t('medication.patient.DateBirth')}
+                                    component={TextField}
+                                    required
+                                    placeholder={t('0000-00-00')}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                {t('medication.patient.SexAssig')}
+                                <Field
+                                    name="patientInfo.sexAssig"
+                                    fullWidth
+                                    select
+                                    id="id"
+                                    label={t('medication.patient.SexAssig')}
+                                    component={TextField}
+                                    required
+                                    placeholder={t('medication.patient.SexAssig')}
+                                >
+                                    {sexOptions.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </Field>
+                            </Grid>
+                        </Grid>
+                    </FormInnerContainer>
+                    <FormConainter>
+                        <Box paddingX={2} marginTop={4}>
+                            {t('medication.patient.consentSection')}
+
+                            <MUITextField
+                                variant='outlined'
+                                name='agreeToTerms'
+                                fullWidth
+                                id="id"
+                                required
+                                multiline
+                                type={'checkbox'}
+                                value={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
+                            />
+
+                            <Field
+                                name="patientInfo.agreeToConsent"
+                                label={t('medication.patient.Iagress')}
+                                value={true}
+                                component={Checkbox}
+                            />
+
+                            {(touched?.patientInfo?.agreeToConsent && errors?.patientInfo?.agreeToConsent) && <FormHelperText error>{errors.patientInfo.agreeToConsent}</FormHelperText>}
+                        </Box>
+                        <Box marginX={4} textAlign={'center'} color={'red'}>
+                            {touched.patientInfo?.sign && errors.patientInfo?.sign && (
+                                <div>{errors.patientInfo.sign}</div>
+                            )}
+                        </Box>
+                        <MedicationsSign onChange={(sign) => setFieldValue('patientInfo.sign', sign)} />
+                    </FormConainter>
+                </FormConainter>
+                <Button
+                    startIcon={<KeyboardBackspaceIcon />}
+                    variant="contained"
+                    color='secondary'
+                    sx={(theme) => ({ margin: theme.spacing(1) })}
+                    onClick={() => onPrev(values)}
+                >
+                    {t('medication.goback')}
+                </Button>
+
+                <Button
+                    type="submit"
+                    startIcon={<SaveIcon />}
+                    variant="contained"
+                    color='primary'
+                    sx={(theme) => ({ margin: theme.spacing(2) })}
+                >
+                    {t('medication.form.actions.save')}
+                </Button>
+            </FormikForm >
+        </>
+    )
+}
+
+
+```
+
+#### MedicationsSign.tsx
+Este componente es el encargado de la firma digital del formulario de paciente de la App.
+
+#### Code
+```
+import { useRef } from "react";
+import { useTranslation } from "next-i18next";
+import SignatureCanvas from 'react-signature-canvas'
+import { Box, Button } from '@mui/material';
+
+type MedicationSignProps = {
+    onChange: (base64Image: string) => void
+}
+
+export default function MedicationsSign(props: MedicationSignProps) {
+    const { onChange } = props;
+
+    const { t } = useTranslation();
+
+    const signRef = useRef<SignatureCanvas | null>(null);
+
+    const handleClear = () => {
+        signRef.current?.clear();
+        onChange?.('');
+    }
+    const handleGenerate = () => {
+        onChange?.(signRef.current?.getTrimmedCanvas().toDataURL('imagen/png') ?? '')
+    }
+
+    return (
+        <>
+            <Box style={{ textAlign: 'center' }}>
+                <SignatureCanvas
+                    canvasProps={{ width: 500, height: 200, style: { border: '1px solid black' } }}
+                    ref={signRef}
+                    penColor='black'
+                    velocityFilterWeight={1}
+                    dotSize={1}
+                    onEnd={handleGenerate}
+                />
+            </Box>
+            <Box style={{ textAlign: 'center' }}>
+                <Button
+                    color='error'
+                    variant="contained"
+                    onClick={handleClear}
+                    sx={(theme) => ({ margin: theme.spacing(1) })}
+                >
+                    {t('medication.firme.clear')}
+                </Button>
+            </Box>
+        </>
+    )
+}
+```
 
 <a name="item13"></a>
 #### welcome-section 
