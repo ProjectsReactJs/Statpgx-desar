@@ -85,7 +85,7 @@ Está carpeta es la encargada de guardar las imagenes que se van a utilizar en l
 Los componentes le permiten separar la interfaz de usuario en piezas independientes y reutilizables y pensar en cada pieza de forma aislada. Esta página proporciona una introducción a la idea de los componentes. Puede encontrar una API detallada sobre los componentes aquí.
 
 <a name="item3"></a>
-### button / Button.js
+## button / Button.js
 Esta carpeta contiene el componente botón donde recibe el color y el texto por parámetro. Se utilizó material de interfaz de usuario. 
 
 #### Code:
@@ -104,7 +104,7 @@ export default Button;
 ```
 
 <a name="item4"></a>
-#### Dashboard / Dashboard.tsx
+## Dashboard / Dashboard.tsx
 Esta carpeta contiene un archivo llamado dashboard.tsx, es un componente de dialogo.
 
 #### Code:
@@ -252,7 +252,7 @@ export default function OptionSelect() {
 ```
 
 <a name="item6"></a>
-### form / Select.js
+## form / Select.js
 Está carpeta contiene un archivo llamado Select.js donde es el encargado del diseño de un formulario de Material UI.
 
 #### Code
@@ -298,7 +298,7 @@ const Select = ({
 export default Select;
 ```
 <a name="item7"></a>
-#### header / NavBar.js
+## header / NavBar.js
 En esta carpeta de header contiene un archivo llamado NavBar.js donde contiene todo el diseño de la barra de navegación de la APP.
 
 #### Code
@@ -333,7 +333,7 @@ export default NavBar;
 ```
 
 <a name="item8"></a>
-#### main / hooks
+## main / hooks
 Esta carpeta main contiene los archivos AuthenticatedPage.tsx , MainContent.tsx , NavigationItemLink.tsx , NavigationItemWithSubItemsLink.tsx , NavigationList.tsx , Page.tsx  y una carpeta llamada hooks que contiene useNavigationOptions.tsx 
 
 <a name="item8"></a>
@@ -866,7 +866,7 @@ export default Page;
 ```
 
 <a name="item9"></a>
-#### Medication / main-section / output-section / patient-info-section / welcome-section 
+## Medication / main-section / output-section / patient-info-section / welcome-section 
 Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
 
 <a name="item10"></a>
