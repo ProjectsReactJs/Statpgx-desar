@@ -105,7 +105,7 @@ export default Button;
 
 <a name="item4"></a>
 #### Dashboard / Dashboard.tsx
-Component in charge of the input of the medication view, it was used for the UI material development.
+Esta carpeta contiene un archivo llamado dashboard.tsx, es un componente de dialogo.
 
 #### Code:
 ```
@@ -299,7 +299,7 @@ export default Select;
 ```
 <a name="item6"></a>
 #### header / NavBar.js
-This file is the layout of the drug view. It does not receive a parameter at the moment.
+En esta carpeta de header contiene un archivo llamado NavBar.js donde contiene todo el diseño de la barra de navegación de la APP.
 
 #### Code
 ```
@@ -334,11 +334,12 @@ export default NavBar;
 
 <a name="item7"></a>
 #### main / hooks
-This file is th
+Esta carpeta main contiene los archivos AuthenticatedPage.tsx , MainContent.tsx , NavigationItemLink.tsx , NavigationItemWithSubItemsLink.tsx , NavigationList.tsx , Page.tsx  y una carpeta llamada hooks que contiene useNavigationOptions.tsx 
 
 <a name="item7"></a>
 #### useNavigationOptions.tsx
-This file is th
+Este archivo es el encargado de mostrar los imagenes del menu lateral de la APP. 
+
 #### Code
 ```
 import { useState, useEffect } from 'react';
@@ -437,7 +438,8 @@ export default useNavigationOptions;
 
 <a name="item7"></a>
 #### AuthenticatedPage.tsx
-This file is th
+Este archivo es el encargado de la autenticación de page de la app.
+
 #### Code
 ```
 mport React, { useEffect } from 'react';
@@ -503,7 +505,8 @@ export default AuthenticatedPage;
 
 <a name="item7"></a>
 #### MainContent.tsx
-This file is th
+Este archivo es el encargado de la estructura del main del contenido centro de la app.
+
 #### Code
 ```
 import React from 'react';
