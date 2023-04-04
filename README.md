@@ -331,6 +331,8 @@ const NavBar = () => {
 
 export default NavBar;
 ```
+#### Imagen de ejecución
+![](https://i.imgur.com/1nDjsfU.png)
 
 <a name="item8"></a>
 ## main / hooks
@@ -435,6 +437,7 @@ function useNavigationOptions(): [NavigationOptions[], NavigationItemProps | und
 export default useNavigationOptions;
 
 ```
+![](https://i.imgur.com/qG4s3cg.png)
 
 <a name="item8"></a>
 #### AuthenticatedPage.tsx
