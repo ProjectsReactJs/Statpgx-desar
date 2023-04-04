@@ -84,8 +84,8 @@ Está carpeta es la encargada de guardar las imagenes que se van a utilizar en l
 ## Components
 Los componentes le permiten separar la interfaz de usuario en piezas independientes y reutilizables y pensar en cada pieza de forma aislada. Esta página proporciona una introducción a la idea de los componentes. Puede encontrar una API detallada sobre los componentes aquí.
 
-<a name="item2"></a>
-### button 
+<a name="item3"></a>
+### button / Button.js
 Esta carpeta contiene el componente botón donde recibe el color y el texto por parámetro. Se utilizó material de interfaz de usuario. 
 
 #### Code:
@@ -104,7 +104,7 @@ export default Button;
 ```
 
 <a name="item4"></a>
-#### Dashboard/ Dashboard.tsx
+#### Dashboard / Dashboard.tsx
 Component in charge of the input of the medication view, it was used for the UI material development.
 
 #### Code:
@@ -257,11 +257,101 @@ Está carpeta contiene un archivo llamado Select.js donde es el encargado del di
 
 #### Code
 ```
+import { FormControl, InputLabel, Select as MUISelect, MenuItem } from "@mui/material";
+import { v4 as uudi } from "uuid";
 
+const Select = ({
+    label = '--Please select an option--',
+    id = uudi(),
+    name = '',
+    value = '',
+    onChange,
+    items = [],
+    disabled = false,
+    keyExtractor = (item) => item.id,
+    textExtractor = (item) => item.name,
+}) => {
+    const handleChange = (e) => {
+        onChange?.(e);
+    }
+
+    return (
+        <FormControl fullWidth>
+            {label && <InputLabel id={id}>{label}</InputLabel>}
+            <MUISelect
+                labelId={id}
+                id={id}
+                value={value}
+                name={name}
+                label={label}
+                disabled={disabled}
+                onChange={handleChange}
+            >
+                {items.map(item => (
+                    <MenuItem value={keyExtractor(item)} key={keyExtractor(item)}>{textExtractor(item)}</MenuItem>
+                ))}
+            </MUISelect>
+        </FormControl>
+    );
+}
+
+export default Select;
+```
+<a name="item6"></a>
+#### header / NavBar.js
+This file is the layout of the drug view. It does not receive a parameter at the moment.
+
+#### Code
+```
 ```
 
+<a name="item7"></a>
+#### main / hooks
+This file is th
 
-<a name="item6"></a>
+<a name="item7"></a>
+#### useNavigationOptions.tsx
+This file is th
+#### Code
+```
+```
+
+<a name="item7"></a>
+#### AuthenticatedPage.tsx
+This file is th
+#### Code
+```
+```
+
+<a name="item7"></a>
+#### MainContent.tsx
+This file is th
+#### Code
+```
+```
+
+<a name="item7"></a>
+#### NavigationItemLink.tsx
+This file is th
+#### Code
+```
+```
+
+<a name="item7"></a>
+#### NavigationItemWithSubItems.tsx
+This file is th
+#### Code
+```
+```
+
+<a name="item7"></a>
+#### Page.tsx
+This file is th
+#### Code
+```
+```
+
+<a name="item8"></a>
 #### Medication.js
 This file is the layout of the drug view. It does not receive a parameter at the moment.
 
