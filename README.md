@@ -766,7 +766,7 @@ const NavigationList: React.FC<NavigastionListProps> = () => {
 export default NavigationList;
 
 ```
-
+ 
 <a name="item8"></a>
 #### Page.tsx
 Este archivo es el encargado de armar en archivo que se muestra principal en la App, donde se hace la llamada a los demas componentes creado.
@@ -865,8 +865,10 @@ const Page: React.FC<PageProps> = (props) => {
 };
 
 export default Page;
-
 ```
+
+![](https://i.imgur.com/YvmeFHe.png)
+
 
 <a name="item9"></a>
 ## Medication / main-section / output-section / patient-info-section / welcome-section 
