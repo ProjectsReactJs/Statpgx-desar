@@ -303,6 +303,33 @@ This file is the layout of the drug view. It does not receive a parameter at the
 
 #### Code
 ```
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import logo from '../../images/statpgx.png';
+
+const NavBar = () => {
+    return (
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+                <Toolbar variant="dense">
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" color="inherit" component="div">
+                        <img src={logo} alt="statpgx" />
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+        </Box>
+    );
+}
+
+export default NavBar;
 ```
 
 <a name="item7"></a>
@@ -314,6 +341,98 @@ This file is th
 This file is th
 #### Code
 ```
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router';
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import MedicationIcon from '@mui/icons-material/Medication';
+import { getTranslatedOptions } from '@utils/translation';
+
+export type NavigationItemProps = {
+	icon?: React.ReactElement;
+	to: string;
+	text: string;
+	key: string;
+	paths: string[];
+	subItems?: NavigationItemProps[];
+};
+
+export type NavigationOptions = {
+	subheader?: string;
+	items: NavigationItemProps[];
+};
+
+function useNavigationOptions(): [NavigationOptions[], NavigationItemProps | undefined] {
+	const { t, i18n } = useTranslation();
+	const router = useRouter();
+	const { language } = i18n;
+	const { pathname } = router;
+	const [navigationOptions, setNavigationOptions] = useState<NavigationOptions[]>([
+		{
+			items: [
+				{
+					icon: <DashboardRoundedIcon />,
+					text: 'sidebar.navigationItems.dashboard',
+					to: '/',
+					paths: ['/'],
+					key: 'sidebar.navigationItems.dashboard',
+				},
+				{
+					icon: <MedicationIcon />,
+					text: 'sidebar.navigationItems.medication',
+					to: '/medications',
+					paths: ['/medications'],
+					key: 'sidebar.navigationItems.medication',
+				},
+				{
+					icon: <SettingsRoundedIcon />,
+					text: 'sidebar.navigationItems.settings',
+					to: '/settings',
+					paths: ['/settings'],
+					key: 'sidebar.navigationItems.settings',
+				},
+			],
+		},
+	]);
+	const [translatedOptions, setTranslatedOptions] = useState(navigationOptions);
+	const [selectedOption, setSelectedOption] = useState<NavigationItemProps>();
+
+	useEffect(() => {
+		const translated: NavigationOptions[] = navigationOptions.map((nO) => {
+			const { items, subheader } = nO;
+			const translatedItems = getTranslatedOptions<NavigationItemProps>(t, items, 'text');
+
+			return {
+				...(subheader && { subheader: t(subheader) }),
+				items: translatedItems.map(({ subItems, ...otherProps }) => {
+					return {
+						...otherProps,
+						...(subItems && { subItems: getTranslatedOptions<NavigationItemProps>(t, subItems, 'text') }),
+					};
+				}),
+			};
+		});
+		setTranslatedOptions(translated);
+	}, [navigationOptions, language]);
+
+	useEffect(() => {
+		const items = translatedOptions
+			.flatMap((tO) => tO.items)
+			.reduce((translatedItems: NavigationItemProps[], currentItem) => {
+				return currentItem.subItems?.length ? translatedItems.concat(currentItem.subItems) : translatedItems.concat(currentItem);
+			}, []);
+
+		const sO = items.find((option) => option.paths.includes(pathname)) || items[0];
+
+		setSelectedOption(sO);
+	}, [translatedOptions, pathname]);
+
+	return [translatedOptions, selectedOption];
+}
+
+export default useNavigationOptions;
+
 ```
 
 <a name="item7"></a>
@@ -321,6 +440,65 @@ This file is th
 This file is th
 #### Code
 ```
+mport React, { useEffect } from 'react';
+import { signOut, useSession } from 'next-auth/react';
+import LoadingIndicator from '@ui/loadingIndicator/LoadingIndicator';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+
+export type AuthProps = {
+	roles: string[];
+	permissions: string[];
+};
+
+export type AuthenticatedPageProps = {
+	auth: AuthProps;
+};
+
+const AuthenticatedPage: React.FC<AuthenticatedPageProps> = ({ children, auth }) => {
+	const { t } = useTranslation();
+	const { status, data } = useSession({ required: true });
+	const router = useRouter();
+
+	useEffect(() => {
+		const logout = async (error: unknown) => {
+			const signOutResponse = await signOut({ redirect: false, callbackUrl: `/auth/signin?error=${error}` });
+			router.push(signOutResponse.url);
+		};
+
+		if (data) {
+			const { error } = data;
+			if (error) {
+				logout(error);
+			}
+		}
+	}, [data]);
+
+	if (status === 'loading') {
+		return <LoadingIndicator>{t('loading')}</LoadingIndicator>;
+	}
+
+	const { user } = data || {};
+	const { roles: userRoles = [], permissions: userPermissions = [] } = user || {};
+
+	const { permissions = [], roles = [] } = auth;
+
+	const hasValidRoles = roles.length ? userRoles.findIndex((userRole) => roles.includes(userRole.value)) !== -1 : true;
+	const hasValidPermission = permissions.length
+		? userPermissions.findIndex((permission) => permissions.includes(permission)) !== -1
+		: true;
+
+	if (hasValidRoles && hasValidPermission) return children as React.ReactElement;
+
+	return (
+		<div>
+			<h1>You are not authorized to view this page!</h1>
+		</div>
+	);
+};
+
+export default AuthenticatedPage;
+
 ```
 
 <a name="item7"></a>
@@ -328,6 +506,40 @@ This file is th
 This file is th
 #### Code
 ```
+import React from 'react';
+import MuiContainer from '@mui/material/Container';
+import { styled } from '@mui/material/styles';
+
+const Content = styled('main')(() => ({
+	flexGrow: 1,
+	height: '100vh',
+	overflow: 'auto',
+	backgroundColor: '#f3f3f3',
+}));
+
+const Container = styled(MuiContainer)(({ theme }) => ({
+	paddingTop: theme.spacing(4),
+	paddingBottom: theme.spacing(4),
+	display: 'flex',
+	flexDirection: 'column',
+}));
+
+export type MainContentProps = {};
+
+const MainContent: React.FC<MainContentProps> = (props) => {
+	const { children } = props;
+
+	return (
+		<Content>
+			<Container maxWidth={false} sx={{ mt: { xs: '64px' }, height: { xs: `calc(100% - 64px)` } }}>
+				{children}
+			</Container>
+		</Content>
+	);
+};
+
+export default MainContent;
+
 ```
 
 <a name="item7"></a>
@@ -335,6 +547,36 @@ This file is th
 This file is th
 #### Code
 ```
+import React from 'react';
+import Link from 'next/link';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { NavigationItemProps } from '@components/main/hooks/useNavigationOptions';
+
+export type NavigationItemLinkProps = {
+	item: NavigationItemProps;
+	onSelectNavigationItem: (option: NavigationItemProps) => void;
+	selectedNavigationItem?: NavigationItemProps;
+};
+
+const NavigationItemLink: React.FC<NavigationItemLinkProps> = (props) => {
+	const { onSelectNavigationItem, item, selectedNavigationItem } = props;
+	const { icon, text, to, key } = item;
+	const isSelected = selectedNavigationItem ? key === selectedNavigationItem.key : false;
+	return (
+		<Link href={to} passHref>
+			<ListItemButton
+				component="a"
+				onClick={() => {
+					onSelectNavigationItem(item);
+				}}
+				title={text}
+				selected={isSelected}
+			>
+				{icon ? <ListItemIcon sx={{ minWidth: { xs: 40, sm: 52 } }}>{icon}</ListItemIcon> : null}
+				<ListItemText
+					primaryTypographyProps={{
+						
+
 ```
 
 <a name="item7"></a>
@@ -342,6 +584,178 @@ This file is th
 This file is th
 #### Code
 ```
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { styled, alpha } from '@mui/material/styles';
+import {
+	List,
+	ListItemButton as MuiListItemButton,
+	ListItemButtonProps,
+	ListItemIcon,
+	ListItemText,
+	Collapse,
+} from '@mui/material';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import { NavigationItemProps } from '@components/main/hooks/useNavigationOptions';
+
+export type NavigationItemWithSubItemsLinkProps = {
+	item: NavigationItemProps;
+	onSelectNavigationItem: (option: NavigationItemProps) => void;
+	selectedNavigationItem?: NavigationItemProps;
+};
+
+const ParentListItemButton = styled(MuiListItemButton, { shouldForwardProp: (prop) => prop !== 'selected' })<ListItemButtonProps>(
+	({ theme, selected }) => ({
+		...(selected && {
+			backgroundColor: alpha(theme.palette.primary.main, 0.2),
+		}),
+	})
+) as typeof MuiListItemButton;
+
+const NavigationItemWithSubItemsLink: React.FC<NavigationItemWithSubItemsLinkProps> = (props) => {
+	const [isOpen, setIsOpen] = useState(false);
+	const [isChildSelected, setChildSelected] = useState(false);
+	const { onSelectNavigationItem, item, selectedNavigationItem } = props;
+	const { icon, text, subItems = [] } = item;
+
+	const handleListItemClick = () => {
+		setIsOpen(!isOpen);
+	};
+
+	useEffect(() => {
+		const selectedSubItem = subItems?.find((subItem) => subItem.key === selectedNavigationItem?.key);
+		setIsOpen(!!selectedSubItem);
+		setChildSelected(!!selectedSubItem);
+	}, [selectedNavigationItem]);
+
+	return (
+		<div>
+			<ParentListItemButton onClick={handleListItemClick} title={text} selected={isChildSelected}>
+				{icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+				<ListItemText
+					primaryTypographyProps={{
+						variant: 'body2',
+					}}
+				>
+					{text}
+				</ListItemText>
+				{isOpen ? <ExpandLess /> : <ExpandMore />}
+			</ParentListItemButton>
+			<Collapse in={isOpen} timeout={200}>
+				<List component="div" disablePadding>
+					{subItems.map((subItem, subItemIndex) => {
+						const { icon: subItemIcon, text: subItemText, to: subItemTo, key: subItemKey } = subItem;
+						const isSelected = selectedNavigationItem ? subItemKey === selectedNavigationItem.key : false;
+						return (
+							<Link href={subItemTo} passHref key={`navItem-subItem-${subItemIndex}`}>
+								<MuiListItemButton
+									component="a"
+									onClick={() => {
+										onSelectNavigationItem(subItem);
+									}}
+									title={subItemText}
+									selected={isSelected}
+								>
+									<ListItemIcon>{subItemIcon}</ListItemIcon>
+									<ListItemText
+										primaryTypographyProps={{
+											variant: 'body2',
+										}}
+									>
+										{subItemText}
+									</ListItemText>
+								</MuiListItemButton>
+							</Link>
+						);
+					})}
+				</List>
+			</Collapse>
+		</div>
+	);
+};
+
+export default NavigationItemWithSubItemsLink;
+
+```
+
+<a name="item7"></a>
+#### NavigationList.tsx
+This file is th
+#### Code
+```
+import React from 'react';
+import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
+import { List, Divider, ListSubheader } from '@mui/material';
+import useNavigationOptions, { NavigationItemProps } from '@components/main/hooks/useNavigationOptions';
+import NavigationItemLink from './NavigationItemLink';
+import NavigationItemWithSubItemsLink from './NavigationItemWithSubItemsLink';
+
+export type NavigastionListProps = {};
+
+const NavigationList: React.FC<NavigastionListProps> = () => {
+	const [navigationItems, selectedNavigationItem] = useNavigationOptions();
+	const router = useRouter();
+
+	const onSelectNavigationItem = async (option: NavigationItemProps) => {
+		if (selectedNavigationItem && option.key !== selectedNavigationItem.key) {
+			const { key } = option;
+			switch (key) {
+				case 'sidebar.navigationItems.logout': {
+					const response = await signOut({ redirect: false, callbackUrl: '/auth/signin' });
+					router.push(response.url);
+					break;
+				}
+				default: {
+					if (option.to) {
+						router.push(option.to);
+					}
+					break;
+				}
+			}
+		}
+	};
+
+	return (
+		<div>
+			{navigationItems.map((navItem, navIndex) => {
+				const { subheader, items } = navItem;
+
+				return (
+					<List key={`navItem-${navIndex}`} component="nav">
+						{navIndex !== 0 && <Divider />}
+						{subheader && <ListSubheader inset>{subheader}</ListSubheader>}
+						{items.map((item, itemIndex) => {
+							if (item.subItems && item.subItems.length) {
+								return (
+									<NavigationItemWithSubItemsLink
+										item={item}
+										selectedNavigationItem={selectedNavigationItem}
+										onSelectNavigationItem={onSelectNavigationItem}
+										key={`navItem-${navIndex}-${itemIndex}`}
+									/>
+								);
+							} else {
+								return (
+									<NavigationItemLink
+										item={item}
+										selectedNavigationItem={selectedNavigationItem}
+										onSelectNavigationItem={onSelectNavigationItem}
+										key={`navItem-${navIndex}-${itemIndex}`}
+									/>
+								);
+							}
+						})}
+					</List>
+				);
+			})}
+		</div>
+	);
+};
+
+export default NavigationList;
+
 ```
 
 <a name="item7"></a>
@@ -349,11 +763,104 @@ This file is th
 This file is th
 #### Code
 ```
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import Image from 'next/image'
+import { SnackbarProvider } from 'notistack';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme, styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Sidebar from '@ui/navigation/sidebar/Sidebar';
+import Header from '@ui/header/Header';
+import MainContent from './MainContent';
+import NavigationList from './NavigationList';
+import logo from '../../assets/images/statpgx-logo.png';
+
+const Root = styled('div')(() => ({
+	display: 'flex',
+	'.analyticsReport': {
+		flexGrow: 1,
+	},
+}));
+
+const Footer = styled('footer')(({ theme }) => ({
+	position: 'relative',
+	marginTop: 15,
+	bottom: 0,
+	borderTop: '1px solid #e7e7e7',
+	fontWeight: 300,
+	lineHeight: '1.5em',
+}));
+
+const FooterText = styled('p')(() => ({
+	float: 'right',
+	margin: 0,
+	padding: '15px',
+	fontSize: '14px',
+}));
+
+
+export type PageProps = {};
+
+const Page: React.FC<PageProps> = (props) => {
+	const { children } = props;
+	const { t } = useTranslation();
+	const theme = useTheme();
+	const isSm = useMediaQuery(theme.breakpoints.up('md'));
+	const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+	useEffect(() => {
+		setIsSidebarOpen(isSm);
+	}, [isSm]);
+
+	const onToggleSidebar = (event: React.KeyboardEvent | React.MouseEvent) => {
+		if (
+			event.type === 'keydown' &&
+			((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
+		) {
+			return;
+		}
+
+		setIsSidebarOpen(!isSidebarOpen);
+	};
+
+	return (
+		<SnackbarProvider
+			maxSnack={1}
+			anchorOrigin={{
+				horizontal: 'center',
+				vertical: 'top',
+			}}
+		>
+			<Root>
+				<Header isSidebarOpen={isSidebarOpen} onToggleSidebar={onToggleSidebar}>
+					<Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center' }}>
+						<Image src={logo} alt="statpgx" height={60} width={200} />
+					</Box>
+				</Header>
+				<Sidebar isSidebarOpen={isSidebarOpen} onToggleSidebar={onToggleSidebar}>
+					<NavigationList />
+				</Sidebar>
+				<MainContent>
+					<Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>{children}</Box>
+					<Footer>
+						<FooterText>
+							&copy; {new Date().getFullYear()} {t('footer.copyright')}
+						</FooterText>
+					</Footer>
+				</MainContent>
+			</Root>
+		</SnackbarProvider>
+	);
+};
+
+export default Page;
+
 ```
 
 <a name="item8"></a>
-#### Medication.js
-This file is the layout of the drug view. It does not receive a parameter at the moment.
+#### Medication / main-section / output-section / patient-info-section / welcome-section 
+Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
 
 #### Code
 ```
