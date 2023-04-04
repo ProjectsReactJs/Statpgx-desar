@@ -70,11 +70,11 @@ npm install @mui/material @emotion/react @emotion/styled
 		* [MedicationsForm.tsx](#item15)
 		* [MedicationsHelper.ts](#item16)
 	* [settings](#item17)
-		* [OptionSelect.js](#item18)
-* [hooks](#item19)
-* [OptionSelect.js](#item)
-* [pages](#item)
-    * [Medication.js](#item)
+		* [OptionSelect.js](#item17)
+* [hooks](#item18)
+* [OptionSelect.js](#item19)
+* [pages](#item20)
+    * [Medication.js](#item20)
 
 <a name="item1"></a>
 ## assets
@@ -251,7 +251,7 @@ export default function OptionSelect() {
 }
 ```
 
-<a name="item5"></a>
+<a name="item6"></a>
 ### form / Select.js
 Está carpeta contiene un archivo llamado Select.js donde es el encargado del diseño de un formulario de Material UI.
 
@@ -297,7 +297,7 @@ const Select = ({
 
 export default Select;
 ```
-<a name="item6"></a>
+<a name="item7"></a>
 #### header / NavBar.js
 En esta carpeta de header contiene un archivo llamado NavBar.js donde contiene todo el diseño de la barra de navegación de la APP.
 
@@ -332,11 +332,11 @@ const NavBar = () => {
 export default NavBar;
 ```
 
-<a name="item7"></a>
+<a name="item8"></a>
 #### main / hooks
 Esta carpeta main contiene los archivos AuthenticatedPage.tsx , MainContent.tsx , NavigationItemLink.tsx , NavigationItemWithSubItemsLink.tsx , NavigationList.tsx , Page.tsx  y una carpeta llamada hooks que contiene useNavigationOptions.tsx 
 
-<a name="item7"></a>
+<a name="item8"></a>
 #### useNavigationOptions.tsx
 Este archivo es el encargado de mostrar los imagenes del menu lateral de la APP. 
 
@@ -436,7 +436,7 @@ export default useNavigationOptions;
 
 ```
 
-<a name="item7"></a>
+<a name="item8"></a>
 #### AuthenticatedPage.tsx
 Este archivo es el encargado de la autenticación de page de la app.
 
@@ -503,7 +503,7 @@ export default AuthenticatedPage;
 
 ```
 
-<a name="item7"></a>
+<a name="item8"></a>
 #### MainContent.tsx
 Este archivo es el encargado de la estructura del main del contenido centro de la app.
 
@@ -545,7 +545,7 @@ export default MainContent;
 
 ```
 
-<a name="item7"></a>
+<a name="item8"></a>
 #### NavigationItemLink.tsx
 Este componente es el encargado de un item de la barra de navegation. 
 
@@ -583,7 +583,7 @@ const NavigationItemLink: React.FC<NavigationItemLinkProps> = (props) => {
 
 ```
 
-<a name="item7"></a>
+<a name="item8"></a>
 #### NavigationItemWithSubItems.tsx
 Este componente es el encargado de unir todos los item del navegación donde es el diseño y validacion de cada items de la App.
 
@@ -684,7 +684,7 @@ export default NavigationItemWithSubItemsLink;
 
 ```
 
-<a name="item7"></a>
+<a name="item8"></a>
 #### NavigationList.tsx
 Este componente es parte también del navigation de la app.
 
@@ -764,7 +764,7 @@ export default NavigationList;
 
 ```
 
-<a name="item7"></a>
+<a name="item8"></a>
 #### Page.tsx
 Este archivo es el encargado de armar en archivo que se muestra principal en la App, donde se hace la llamada a los demas componentes creado.
 
@@ -865,8 +865,33 @@ export default Page;
 
 ```
 
-<a name="item8"></a>
+<a name="item9"></a>
 #### Medication / main-section / output-section / patient-info-section / welcome-section 
+Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
+
+<a name="item10"></a>
+#### main-section
+Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
+
+## MedicationsMainSection.tsx
+Esta carpeta de
+
+## MedicationsMainSectionForm.tsx
+Esta carpeta de
+
+## MedicationsPreviewDataDialog.tsx
+Esta carpeta de
+
+<a name="item11"></a>
+#### output-section
+Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
+
+<a name="item12"></a>
+#### patient-info-section
+Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
+
+<a name="item13"></a>
+#### welcome-section 
 Esta carpeta de medication contiene y sub carpeta que son main-section, output-section, patient-info-section, welcome-section y 3 archivos llamados Medications.tsx, MedicationsForm.tsx y medicationsHelper.ts
 
 <a name="item14"></a>
