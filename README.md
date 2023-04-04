@@ -250,6 +250,8 @@ export default function OptionSelect() {
     );
 }
 ```
+#### Imagen de ejecución
+![](https://i.imgur.com/4o4Jvcp.png)
 
 <a name="item6"></a>
 ## form / Select.js
@@ -2446,4 +2448,4 @@ export const defaultValues: SettingsFormValues = {
 ```
 
 #### Imagen de ejecución
-![](https://i.imgur.com/qFw7Hs4.png)
+![](https://i.imgur.com/Ug83Tn6.png)
