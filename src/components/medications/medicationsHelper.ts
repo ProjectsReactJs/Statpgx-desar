@@ -3,8 +3,20 @@ import { ConditionTreatment, Medication, RelevantDiagnosis } from "types/interfa
 export type MedicationsFormValues = {
 	currentMedicationIndex: number,
 	doctorInfo: {
-		doctorId: number;
+		id: number;
 		insuranceId: number;
+		doctorName: string,
+		speciality: string,
+		practiceName: string,
+		practiceAddressLine1: string,
+		practiceAddressLine2: string,
+		city: string,
+		state: string,
+		postalCode: string,
+		doctorLastName: string,
+		npiNumber: string,
+		designation: Number,
+		testingTypes: string
 	},
 	medications: {
 		medicationId: number;
@@ -32,8 +44,20 @@ export type MedicationsFormValues = {
 export const defaultValues: MedicationsFormValues = {
 	currentMedicationIndex: 0,
 	doctorInfo: {
-		doctorId: 0,
+		id: 0,
 		insuranceId: 0,
+		doctorName: '',
+		speciality: '',
+		practiceName: '',
+		practiceAddressLine1: '',
+		practiceAddressLine2: '',
+		city: '',
+		state: '',
+		postalCode: '',
+		doctorLastName: '',
+		npiNumber: '',
+		designation: 0,
+		testingTypes: ''
 	},
 	medications: [{
 		medicationId: 0,

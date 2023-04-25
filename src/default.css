@@ -4,6 +4,15 @@ body .holos-survey {
 
 }
 
+.table-color {
+    background-color: #b5c5cd;
+    color: black;
+}
+
+.table-centered-hedings .MuiDataGrid-columnHeaderTitleContainer {
+    justify-content: center;
+}
+
 .holos-survey .sd-input {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -22,7 +31,7 @@ body .holos-survey {
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.holos-survey  .sd-description {
+.holos-survey .sd-description {
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -45,7 +54,7 @@ body .holos-survey {
 .sd-boolean__thumb,
 .sd-boolean__label {
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-} 
+}
 
 .sd-btn {
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -114,7 +123,7 @@ body .holos-survey {
 .holos-survey .sd-body__navigation {
     padding: calc(2 * var(--base-unit, 8px)) 2px;
 }
- 
+
 .sd-body.sd-body--static .sd-body__timer,
 .sd-body.sd-body--static .sd-body__navigation,
 .sd-body.sd-body--static .sd-body__page {
@@ -142,7 +151,7 @@ body .holos-survey {
 .sd-action:focus.sd-action--icon {
     background-color: transparent;
 }
- 
+
 
 .btn-more-info .sd-action__title {
     font-size: 0.8125rem !important;

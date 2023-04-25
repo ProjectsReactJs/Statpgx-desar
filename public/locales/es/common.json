@@ -5,7 +5,7 @@
 		"delete": "Borrar",
 		"edit": "Editar",
 		"new": "Nuevo",
-		"save": "Guradar"
+		"save": "Guardar"
 	},
 	"dashboard": {
 		"title": "Métricas de salud"
@@ -65,7 +65,10 @@
 			"dashboard": "Tablero",
 			"settings": "Ajustes",
 			"medication": "Medicación",
-			"logout": "Cerrar sesión"
+			"logout": "Cerrar sesión",
+			"fileManagement": "Gestión de Archivos",
+			"createClinicalAccounts": "Crear Prácticas",
+			"createLogin": "Crear inicio de sesión"
 		}
 	},
 	"medication": {
@@ -141,5 +144,57 @@
 		"title": "Información del Doctor y Seguro",
 		"ConfirmYourDoctor": "Confirma tu Doctor",
 		"ConfirmYourInsurance": "Confirma tu Seguro"
+	},
+	"fileManagement": {
+		"patientId": "ID del paciente",
+		"date": "Fecha",
+		"status": "Estado",
+		"patientName": "Nombre del Paciente",
+		"doctorName": "Nombre del Doctor",
+		"representative": "Representante",
+		"repUserName": "Nombre del Usuario Representante",
+		"insurance": "Seguro",
+		"requisitionForm": "Formulario de Solicitud",
+		"supportingDocument": "Documento de Apoyo",
+		"insuranceCard": "Tarjeta de Seguro",
+		"checklist": "Lista de Verificación",
+		"testType": "Tipo de Prueba",
+		"requisitionId": "ID de Solicitud",
+		"testHistoryId": "ID del Tipo de Historia",
+		"search": "Buscar"
+	},
+	"createPracticeClinical": {
+		"title": "Crear Cuentas Clínicas",
+		"practiceName": "Nombre de la Práctica",
+		"pleaseSelectP": "Por favor Seleccione una Practica",
+		"pleaseSelectDoctor": "Por favor Seleccione un Doctor",
+		"InternalID": "Identificación Interna",
+		"addressLineOne": "Dirección Línea 1",
+		"addressLineDos": "Dirección Línea 2",
+		"postalCode": "Código Postal",
+		"phone": "Teléfono",
+		"fax": "Fax",
+		"addPractice": "Agregar Práctica",
+		"addDoctor": "Agregar Doctor",
+		"save": "Guardar",
+		"doctorFirstName": "Nombre del Doctor",
+		"doctorLastName": "Apellido del Doctor",
+		"npiNumber": "NPI Número",
+		"designation": "Designación",
+		"specialty": "Especialidad",
+		"testingTypes": "Tipos de prueba",
+		"doctores": "Doctores"
+	},
+	"Login": {
+		"title": "Crear inicio de sesión en el portal",
+		"userLogin": "Inicio de sesión de usuario",
+		"userFirstName": "Nombre de usuario",
+		"userLastName": "Apellido del usuario",
+		"Phone": "Teléfono",
+		"EmailAddress": "Dirección de correo electrónico",
+		"AddUser": "Agregar Usuario",
+		"AssignFileManagementV": "Asignar visualización de gestión de archivos",
+		"PleaseSelectaPractice": "Seleccione una Práctica",
+		"PleaseSelectaDoctor": "Seleccione el Doctor"
 	}
 }

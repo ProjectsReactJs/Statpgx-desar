@@ -4,7 +4,8 @@
 		"cancel": "Cancel",
 		"delete": "Delete",
 		"edit": "Edit",
-		"new": "New"
+		"new": "New",
+		"save": "Save"
 	},
 	"dashboard": {
 		"title": "Health Metrics"
@@ -61,7 +62,10 @@
 		"navigationItems": {
 			"dashboard": "Dashboard",
 			"settings": "Settings",
-			"medication": "Medication"
+			"medication": "Medication",
+			"fileManagement": "File Management",
+			"createClinicalAccounts": "Create Clinical Accounts",
+			"createLogin": "Create Portal Login"
 		}
 	},
 	"medication": {
@@ -137,5 +141,58 @@
 		"title": "Doctor and Insurance Information",
 		"ConfirmYourDoctor": "Confirm your Doctor",
 		"ConfirmYourInsurance": "Confirm your Insurance"
+	},
+	"fileManagement": {
+		"patientId": "ID Patient",
+		"date": "Date",
+		"status": "Status",
+		"patientName": "Name Patient",
+		"doctorName": "Name Doctor",
+		"representative": "Representative",
+		"repUserName": "Name Representative User",
+		"insurance": "Insurance",
+		"requisitionForm": "Requisition Form",
+		"supportingDocument": "Supporting Document",
+		"insuranceCard": "Insurance Card",
+		"checklist": "Check List",
+		"testType": "Test Type",
+		"requisitionId": "ID Requisition",
+		"testHistoryId": "ID Test History",
+		"search": "Search"
+	},
+	"createPracticeClinical": {
+		"title": "Create Clinical Accounts",
+		"practiceName": "Practice Name",
+		"pleaseSelectP": "Please Select Practice",
+		"pleaseSelectDoctor": "Please Select Doctor",
+		"InternalID": "Internal ID",
+		"addressLineOne": "Address Line 1",
+		"addressLineDos": "Address Line 2",
+		"postalCode": "Postal Code",
+		"phone": "Phone",
+		"fax": "Fax",
+		"addPractice": "Add a Practice",
+		"addDoctor": "Add a Doctor",
+		"save": "Save",
+		"pleaseSelectD": "Please Select Doctor",
+		"doctorFirstName": "Doctor First Name",
+		"doctorLastName": "Doctor Last Name",
+		"npiNumber": "NPI Number",
+		"designation": "Designation",
+		"specialty": "Specialty",
+		"testingTypes": "TestingTypes",
+		"doctores": "Doctors"
+	},
+	"Login": {
+		"title": "Create Portal Login",
+		"userLogin": "User Login",
+		"userFirstName": "User First Name",
+		"userLastName": "User Last Name",
+		"Phone": "Phone",
+		"EmailAddress": "Email Address",
+		"AddUser": "Add User",
+		"AssignFileManagementV": "Assign File Management Viewingl",
+		"PleaseSelectaPractice": "Please Select a Practice",
+		"PleaseSelectaDoctor": "Please Select a Doctor"
 	}
 }

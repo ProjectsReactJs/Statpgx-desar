@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
-import { SessionProvider } from 'next-auth/react';
 import { appWithTranslation, useTranslation } from 'next-i18next';
 import { NextComponentType, NextPageContext } from 'next/types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -57,19 +56,17 @@ function MyApp(props: MyAppProps) {
 	);
 
 	return (
-		<SessionProvider session={session} refetchInterval={900}>
-			<CacheProvider value={emotionCache}>
-				<Head>
-					<meta name="viewport" content="initial-scale=1, width=device-width" />
-				</Head>
-				<ThemeProvider theme={themeWithLocale}>
-					<CssBaseline />
-					<Page>
-						<Component {...pageProps} />
-					</Page>
-				</ThemeProvider>
-			</CacheProvider>
-		</SessionProvider>
+		<CacheProvider value={emotionCache}>
+			<Head>
+				<meta name="viewport" content="initial-scale=1, width=device-width" />
+			</Head>
+			<ThemeProvider theme={themeWithLocale}>
+				<CssBaseline />
+				<Page>
+					<Component {...pageProps} />
+				</Page>
+			</ThemeProvider>
+		</CacheProvider>
 	);
 }
 

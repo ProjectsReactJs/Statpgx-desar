@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
+import AddIcon from '@mui/icons-material/NoteAlt';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import MedicationIcon from '@mui/icons-material/Medication';
+import FileManagementIcon from '@mui/icons-material/Description';
 import { getTranslatedOptions } from '@utils/translation';
 
 export type NavigationItemProps = {
@@ -43,12 +46,34 @@ function useNavigationOptions(): [NavigationOptions[], NavigationItemProps | und
 					key: 'sidebar.navigationItems.medication',
 				},
 				{
+					icon: <FileManagementIcon />,
+					text: 'sidebar.navigationItems.fileManagement',
+					to: '/file-management',
+					paths: ['/file-management'],
+					key: 'sidebar.navigationItems.fileManagement',
+				},
+				{
+					icon: <AddIcon />,
+					text: 'sidebar.navigationItems.createClinicalAccounts',
+					to: '/clinical-accounts',
+					paths: ['/clinical-accounts'],
+					key: 'sidebar.navigationItems.createClinicalAccounts',
+				},
+				{
+					icon: <PersonAddIcon />,
+					text: 'sidebar.navigationItems.createLogin',
+					to: '/create-login',
+					paths: ['/create-login'],
+					key: 'sidebar.navigationItems.createLogin',
+				},
+				{
 					icon: <SettingsRoundedIcon />,
 					text: 'sidebar.navigationItems.settings',
 					to: '/settings',
 					paths: ['/settings'],
 					key: 'sidebar.navigationItems.settings',
 				},
+
 			],
 		},
 	]);
